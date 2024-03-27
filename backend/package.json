@@ -1,0 +1,19 @@
+{
+  "name": "faculty-scheduler-backend",
+  "version": "1.0.0",
+  "description": "Backend for the faculty scheduler application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.0"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "prisma": "^5.11.0"
+  }
+}

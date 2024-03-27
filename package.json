@@ -1,0 +1,11 @@
+{
+  "name": "faculty-scheduler",
+  "version": "1.0.0",
+  "description": "Scheduling program for the University of Toledo Engineering Technology Department. Stores and displays information about the schedules of professors for students or other professors to see.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
