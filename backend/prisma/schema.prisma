@@ -14,10 +14,10 @@ datasource db {
 }
 
 model Professor {
-  id    String  @id @default(uuid())
-  fname String
-  lname String
-  Event Event[]
+  id     String  @id @default(uuid())
+  fname  String
+  lname  String
+  events Event[]
 
   @@unique([fname, lname])
 }
