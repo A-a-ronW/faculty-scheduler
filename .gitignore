@@ -25,3 +25,5 @@ dist-ssr
 
 .env
 script.js
+*.http
+httptests
