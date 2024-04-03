@@ -28,9 +28,9 @@ router.get('/:firstName/:lastName', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    try {
-        const { firstName, lastName } = req.body;
+    const { firstName, lastName } = req.body;
 
+    try {
         const professor = await prisma.professor.create({
             data: {
                 firstName: firstName,
@@ -43,5 +43,29 @@ router.post('/', async (req, res) => {
         res.status(500).send(`Failed to add new professor. Error: ${err}`)
     }
 });
+
+router.patch('/:oldFirstName/:oldLastName', async (req, res) => {
+    const { oldFirstName, oldLastName } = req.params;
+    const { firstName, lastName } = req.body;
+
+    try {
+        const updatedProfessor = await prisma.professor.update({
+            where: {
+                fullName: {
+                    firstName: oldFirstName,
+                    lastName: oldLastName
+                }
+            },
+            data: {
+                firstName: firstName,
+                lastName: lastName
+            }
+        });
+
+        res.send(updatedProfessor)
+    } catch (err) {
+        res.status(500).send(`Failed to update professor ${oldFirstName} ${oldLastName}. Error: ${err}`);
+    }
+})
 
 module.exports = router;
