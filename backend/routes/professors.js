@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
 
         res.send(professor);
     } catch (err) {
-        res.status(500).send(`Failed to add new professor. Error: ${err}`)
+        res.status(500).send(`Failed to add new professor. Error: ${err}`);
     }
 });
 

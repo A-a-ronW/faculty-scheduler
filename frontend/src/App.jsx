@@ -7,18 +7,22 @@ const App = () => {
     const [professors, setProfessors] = useState([]);
 
     useEffect(() => {
-        professorService.getProfessors().then(response => {
-            setProfessors(response);
-        });
+        const fetchProfessors = async () => {
+            try {
+                const response = await professorService.getProfessors();
+                setProfessors(response);
+            } catch (error) {
+                console.error(`Error fetching professors: ${error}`);
+            }
+        };
+
+        fetchProfessors();
     }, []);
 
-    if (!isAdmin) {
-        return (
+    if (isAdmin) {
+        return(
             <div>
-                <button onClick={() => {
-                    setIsAdmin(true)
-                }}>Enable Admin View
-                </button>
+                <button onClick={() => {setIsAdmin(false)}}>Disable Admin View</button>
                 <h1>Professors</h1>
                 <div>
                     {professors.map((professor) => (
@@ -31,26 +35,23 @@ const App = () => {
                 </div>
             </div>
         );
-    } else {
-        return (
-            <div>
-                <button onClick={() => {
-                    setIsAdmin(false)
-                }}>Disable Admin View
-                </button>
-                <h1>Professors</h1>
-                <div>
-                    {professors.map((professor) => (
-                        <Professor
-                            key={professor.id}
-                            firstName={professor.firstName}
-                            lastName={professor.lastName}
-                        ></Professor>
-                    ))}
-                </div>
-            </div>
-        )
     }
-}
+
+    return(
+        <div>
+            <button onClick={() => {setIsAdmin(true)}}>Enable Admin View</button>
+            <h1>Professors</h1>
+            <div>
+                {professors.map((professor) => (
+                    <Professor
+                        key={professor.id}
+                        firstName={professor.firstName}
+                        lastName={professor.lastName}
+                    ></Professor>
+                ))}
+            </div>
+        </div>
+    );
+};
 
 export default App;
