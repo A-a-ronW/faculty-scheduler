@@ -8,22 +8,19 @@ router.use(express.json());
 
 router.get('/', async (req, res) => res.send(await prisma.professor.findMany()));
 
-router.get('/:firstName/:lastName', async (req, res) => {
-    const { firstName, lastName } = req.params;
+router.get('/:id', async (req, res) => {
+    const { id } = req.params;
 
     try {
         const professor = await prisma.professor.findUniqueOrThrow({
             where: {
-                fullName: {
-                    firstName: firstName,
-                    lastName: lastName
-                }
+                id: id
             }
         });
 
         res.send(professor);
     } catch(err) {
-        res.status(404).send(`Professor ${firstName} ${lastName} not found`);
+        res.status(404).send(`Professor with id ${id} not found`);
     }
 });
 
@@ -44,17 +41,14 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.patch('/:oldFirstName/:oldLastName', async (req, res) => {
-    const { oldFirstName, oldLastName } = req.params;
+router.patch('/:id', async (req, res) => {
+    const { id } = req.params;
     const { firstName, lastName } = req.body;
 
     try {
         const updatedProfessor = await prisma.professor.update({
             where: {
-                fullName: {
-                    firstName: oldFirstName,
-                    lastName: oldLastName
-                }
+                id: id
             },
             data: {
                 firstName: firstName,
@@ -64,7 +58,7 @@ router.patch('/:oldFirstName/:oldLastName', async (req, res) => {
 
         res.send(updatedProfessor)
     } catch (err) {
-        res.status(500).send(`Failed to update professor ${oldFirstName} ${oldLastName}. Error: ${err}`);
+        res.status(500).send(`Failed to update professor with id ${id}. Error: ${err}`);
     }
 })
 

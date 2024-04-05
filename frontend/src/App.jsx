@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Professor from './components/Professor';
-import professorService from './services/professor';
+import professorService from './services/professors.js';
 
 const App = () => {
     const [isAdmin, setIsAdmin] = useState(false);
