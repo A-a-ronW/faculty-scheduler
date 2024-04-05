@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Professor from './components/Professor';
-import professorService from './services/professors.js';
+import professorsService from './services/professors.js';
 
 const App = () => {
     const [isAdmin, setIsAdmin] = useState(false);
@@ -9,7 +9,7 @@ const App = () => {
     useEffect(() => {
         const fetchProfessors = async () => {
             try {
-                const response = await professorService.getProfessors();
+                const response = await professorsService.getProfessors();
                 setProfessors(response);
             } catch (error) {
                 console.error(`Error fetching professors: ${error}`);
