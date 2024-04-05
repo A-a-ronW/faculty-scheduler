@@ -4,20 +4,18 @@ import professorsService from './services/professors.js';
 
 const App = () => {
     const [isAdmin, setIsAdmin] = useState(false);
-    const [professors, setProfessors] = useState([]);
+    const [professorsList, setProfessorsList] = useState([]);
 
     useEffect(() => {
-        const fetchProfessors = async () => {
-            try {
-                const response = await professorsService.getProfessors();
-                setProfessors(response);
-            } catch (error) {
+        professorsService.getProfessors()
+            .then(response => {
+                setProfessorsList(response);
+            })
+            .catch(error => {
                 console.error(`Error fetching professors: ${error}`);
-            }
-        };
-
-        fetchProfessors();
+            });
     }, []);
+
 
     if (isAdmin) {
         return(
@@ -25,11 +23,15 @@ const App = () => {
                 <button onClick={() => {setIsAdmin(false)}}>Disable Admin View</button>
                 <h1>Professors</h1>
                 <div>
-                    {professors.map((professor) => (
+                    {professorsList.map((professor) => (
                         <Professor
                             key={professor.id}
-                            firstName={professor.firstName}
-                            lastName={professor.lastName}
+                            id={professor.id}
+                            professorsList={professorsList}
+                            setProfessorsList={setProfessorsList}
+                            firstName={professor.firstName} // Could be omitted. See TODO in Professors.jsx
+                            lastName={professor.lastName} // Could be omitted. See TODO in Professors.jsx
+                            isAdmin={isAdmin}
                         ></Professor>
                     ))}
                 </div>
@@ -42,11 +44,15 @@ const App = () => {
             <button onClick={() => {setIsAdmin(true)}}>Enable Admin View</button>
             <h1>Professors</h1>
             <div>
-                {professors.map((professor) => (
+                {professorsList.map((professor) => (
                     <Professor
                         key={professor.id}
-                        firstName={professor.firstName}
-                        lastName={professor.lastName}
+                        id={professor.id}
+                        professorsList={professorsList}
+                        setProfessorsList={setProfessorsList}
+                        firstName={professor.firstName} // Could be omitted. See TODO in Professors.jsx
+                        lastName={professor.lastName} // Could be omitted. See TODO in Professors.jsx
+                        isAdmin={isAdmin}
                     ></Professor>
                 ))}
             </div>
