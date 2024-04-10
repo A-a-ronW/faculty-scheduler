@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import Professor from './components/Professor';
 import professorsService from './services/professors.js';
+import axios from 'axios';
 
 const App = () => {
     const [isAdmin, setIsAdmin] = useState(false);
     const [professorsList, setProfessorsList] = useState([]);
+    const [passwordField, setPasswordField] = useState("Password");
 
     useEffect(() => {
         professorsService.getProfessors()
@@ -16,11 +18,24 @@ const App = () => {
             });
     }, []);
 
+    const handlePasswordChange = (event) => {
+        setPasswordField(event.target.value);
+    };
+
+    const handleEnableAdmin = () => {
+        const passwordRequestBody = { password: passwordField };
+
+        axios.post('http://localhost:3001/authenticate', passwordRequestBody).then((response) => {
+            if (response.data.isAuthenticated) {
+                setIsAdmin(true);
+            }
+        });
+    };
 
     if (isAdmin) {
         return(
             <div>
-                <button onClick={() => {setIsAdmin(false)}}>Disable Admin View</button>
+                <button onClick={() => setIsAdmin(false)}>Disable Admin View</button>
                 <h1>Professors</h1>
                 <div>
                     {professorsList.map((professor) => (
@@ -39,9 +54,10 @@ const App = () => {
         );
     }
 
-    return(
+    return (
         <div>
-            <button onClick={() => {setIsAdmin(true)}}>Enable Admin View</button>
+            <input type="text" name="passwordField" value={passwordField} onChange={handlePasswordChange}/>
+            <button onClick={handleEnableAdmin}>Enable Admin View</button>
             <h1>Professors</h1>
             <div>
                 {professorsList.map((professor) => (

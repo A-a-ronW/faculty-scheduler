@@ -16,7 +16,7 @@ const Professor = ({id, professorsList, setProfessorsList, firstName, lastName, 
     }
 
 
-    const handleSubmit = (id, firstNameField, lastNameField) => {
+    const handleUpdateProfessor = (id, firstNameField, lastNameField) => {
         // TODO: Add change confirmation message.
 
         const updatedProfessor = {
@@ -34,7 +34,7 @@ const Professor = ({id, professorsList, setProfessorsList, firstName, lastName, 
             <div>
                 <input type="text" name="firstName" value={firstNameField} onChange={handleFirstNameChange}/>
                 <input type="text" name="lastName" value={lastNameField} onChange={handleLastNameChange}/>
-                <button className="submit-button" onClick={() => handleSubmit(id, firstNameField, lastNameField)}>Submit</button>
+                <button className="submit-button" onClick={() => handleUpdateProfessor(id, firstNameField, lastNameField)}>Submit</button>
             </div>
         );
     }
