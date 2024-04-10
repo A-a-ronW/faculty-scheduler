@@ -9,11 +9,11 @@ const Professor = ({id, professorsList, setProfessorsList, firstName, lastName, 
 
     const handleFirstNameChange = (event) => {
         setFirstNameField(event.target.value);
-    }
+    };
 
     const handleLastNameChange = (event) => {
         setLastNameField(event.target.value);
-    }
+    };
 
 
     const handleUpdateProfessor = () => {
@@ -35,7 +35,7 @@ const Professor = ({id, professorsList, setProfessorsList, firstName, lastName, 
         if (confirmation) {
             professorsService.deleteProfessor(id).then(() => {
                 setProfessorsList(professorsList.filter(professor => professor.id !== id));
-            })
+            });
         }
     };
 
