@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react';
 import Professor from './components/Professor';
 import professorsService from './services/professors.js';
+import axios from 'axios';
 
 const App = () => {
     const [isAdmin, setIsAdmin] = useState(false);
     const [professorsList, setProfessorsList] = useState([]);
+    const [passwordField, setPasswordField] = useState("");
+    const [newProfFirstNameField, setNewProfFirstNameField] = useState("");
+    const [newProfLastNameField, setNewProfLastNameField] = useState("");
+
 
     useEffect(() => {
         professorsService.getProfessors()
@@ -16,11 +21,45 @@ const App = () => {
             });
     }, []);
 
+    const handlePasswordChange = (event) => {
+        setPasswordField(event.target.value);
+    };
+
+    const handleEnableAdmin = () => {
+        const passwordRequestBody = { password: passwordField };
+
+        axios.post('http://localhost:3001/authenticate', passwordRequestBody).then((response) => {
+            if (response.data.isAuthenticated) {
+                setIsAdmin(true);
+            }
+        });
+    };
+
+    const handleFirstNameChange = (event) => {
+        setNewProfFirstNameField(event.target.value);
+    }
+
+    const handleLastNameChange = (event) => {
+        setNewProfLastNameField(event.target.value);
+    }
+
+    const handleCreateProfessor = () => {
+        const createProfessorBody = {
+            firstName: newProfFirstNameField,
+            lastName: newProfLastNameField
+        }
+
+        professorsService.createProfessor(createProfessorBody).then(response => {
+            setProfessorsList(professorsList.concat(response));
+            setNewProfFirstNameField("");
+            setNewProfLastNameField("");
+        });
+    }
 
     if (isAdmin) {
         return(
             <div>
-                <button onClick={() => {setIsAdmin(false)}}>Disable Admin View</button>
+                <button onClick={() => setIsAdmin(false)}>Disable Admin View</button>
                 <h1>Professors</h1>
                 <div>
                     {professorsList.map((professor) => (
@@ -34,14 +73,20 @@ const App = () => {
                             isAdmin={isAdmin}
                         ></Professor>
                     ))}
+                    <div>
+                        <input type="text" name="newProfFirstNameField" value={newProfFirstNameField} onChange={handleFirstNameChange}/>
+                        <input type="text" name="newProfLastNameField" value={newProfLastNameField} onChange={handleLastNameChange}/>
+                        <button className="submit-button" onClick={() => handleCreateProfessor()}>Add Professor</button>
+                    </div>
                 </div>
             </div>
         );
     }
 
-    return(
+    return (
         <div>
-            <button onClick={() => {setIsAdmin(true)}}>Enable Admin View</button>
+            Password: <input type="password" name="passwordField" value={passwordField} onChange={handlePasswordChange}/>
+            <button onClick={handleEnableAdmin}>Enable Admin View</button>
             <h1>Professors</h1>
             <div>
                 {professorsList.map((professor) => (
