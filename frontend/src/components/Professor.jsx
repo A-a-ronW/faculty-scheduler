@@ -17,7 +17,7 @@ const Professor = ({id, professorsList, setProfessorsList, firstName, lastName, 
 
 
     const handleSubmit = (id, firstNameField, lastNameField) => {
-        // TODO: Add change confirmation message.
+        alert('Edited ' + firstNameField + ' ' + lastNameField);
 
         const updatedProfessor = {
             firstName: firstNameField,
