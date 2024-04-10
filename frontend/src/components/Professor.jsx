@@ -16,7 +16,7 @@ const Professor = ({id, professorsList, setProfessorsList, firstName, lastName, 
     }
 
 
-    const handleUpdateProfessor = (id, firstNameField, lastNameField) => {
+    const handleUpdateProfessor = () => {
         // TODO: Add change confirmation message.
 
         const updatedProfessor = {
@@ -29,12 +29,23 @@ const Professor = ({id, professorsList, setProfessorsList, firstName, lastName, 
         })
     };
 
+    const handleDeleteProfessor = () => {
+        const confirmation = confirm(`Do you really want to delete ${firstName} ${lastName}? Press OK to confirm.`);
+
+        if (confirmation) {
+            professorsService.deleteProfessor(id).then(() => {
+                setProfessorsList(professorsList.filter(professor => professor.id !== id));
+            })
+        }
+    };
+
     if (isAdmin) {
         return(
             <div>
                 <input type="text" name="firstName" value={firstNameField} onChange={handleFirstNameChange}/>
                 <input type="text" name="lastName" value={lastNameField} onChange={handleLastNameChange}/>
-                <button className="submit-button" onClick={() => handleUpdateProfessor(id, firstNameField, lastNameField)}>Submit</button>
+                <button className="submit-button" onClick={() => handleDeleteProfessor()}>Delete</button>
+                <button className="submit-button" onClick={() => handleUpdateProfessor()}>Update</button>
             </div>
         );
     }

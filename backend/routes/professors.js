@@ -62,4 +62,20 @@ router.patch('/:id', async (req, res) => {
     }
 })
 
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        await prisma.professor.delete({
+            where: {
+                id: id
+            }
+        });
+
+        res.send("Professor was deleted");
+    } catch (err) {
+        res.send(`Professor not deleted. Error: ${err}`)
+    }
+})
+
 module.exports = router;
