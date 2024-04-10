@@ -19,9 +19,9 @@ const authenticateAdmin = async (req, res, next) => {
 
     if (match) {
         next();
+    } else {
+        res.status(401).send({ isAuthenticated: false });
     }
-
-    res.status(401).send({ isAuthenticated: false });
 };
 
 app.post('/authenticate', authenticateAdmin, (req, res) => res.send({ isAuthenticated: true}));
