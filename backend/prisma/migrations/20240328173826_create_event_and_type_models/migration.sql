@@ -8,10 +8,7 @@ CREATE TYPE "DayOfWeek" AS ENUM ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', '
 CREATE TABLE "Event" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
-    "description" TEXT,
-    "date" TIMESTAMP(3) NOT NULL,
     "professorId" TEXT NOT NULL,
-    "eventType" "EventType" NOT NULL,
 
     CONSTRAINT "Event_pkey" PRIMARY KEY ("id")
 );

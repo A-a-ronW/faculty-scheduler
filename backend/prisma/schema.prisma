@@ -25,27 +25,13 @@ model Professor {
 model Event {
   id          String    @id @default(uuid())
   title       String
-  description String?
-  date        DateTime
-  professorId String
+  professorId String    
   professor   Professor @relation(fields: [professorId], references: [id], onDelete: Cascade)
-
-  eventType EventType
-  class     Class?
-  meeting   Meeting?
 }
 
 enum EventType {
   CLASS
   MEETING
-}
-
-model Class {
-  eventId   String      @unique
-  startTime DateTime    @db.Time()
-  endTime   DateTime    @db.Time()
-  days      DayOfWeek[]
-  event     Event       @relation(fields: [eventId], references: [id], onDelete: Cascade)
 }
 
 enum DayOfWeek {
@@ -56,9 +42,4 @@ enum DayOfWeek {
   FRIDAY
   SATURDAY
   SUNDAY
-}
-
-model Meeting {
-  eventId String @unique
-  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
 }
