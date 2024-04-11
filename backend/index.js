@@ -1,14 +1,15 @@
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3001;
-const professorRoutes= require('./routes/professors');
+const professorRoutes = require('./routes/professors');
+const eventRoutes = require('./routes/events');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
-
 
 app.use(cors());
 app.use(express.json());
 app.use('/professors', professorRoutes);
+app.use('/events',eventRoutes);
 
 const adminHash = process.env.ADMIN_HASH;
 
