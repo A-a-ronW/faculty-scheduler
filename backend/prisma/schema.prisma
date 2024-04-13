@@ -25,7 +25,7 @@ model Professor {
 model Event {
   id          String    @id @default(uuid())
   title       String
-  professorId String    
+  professorId String
   professor   Professor @relation(fields: [professorId], references: [id], onDelete: Cascade)
 }
 

@@ -6,24 +6,6 @@ const prisma = new PrismaClient();
 
 router.use(express.json());
 
-router.get('/', async (req, res) => res.send(await prisma.event.findMany()));
-
-router.get('/:id', async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        const event = await prisma.event.findUniqueOrThrow({
-            where: {
-                id: id
-            }
-        });
-
-        res.send(event);
-    } catch(err) {
-        res.status(404).send(`Event with id ${id} not found`);
-    }
-});
-
 router.post('/', async (req, res) => {
     const { title, professorId } = req.body;
 
@@ -51,8 +33,8 @@ router.patch('/:id', async (req, res) => {
                 id: id
             },
             data: {
-                title : title,
-                professorId : professorId
+                title,
+                professorId
             }
         });
 

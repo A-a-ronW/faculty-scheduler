@@ -1,3 +1,7 @@
-.admin-button{
+div {
+    margin: 10px;
+}
+
+.admin-button {
     align-content: right;
 }

@@ -6,21 +6,20 @@ const prisma = new PrismaClient();
 
 router.use(express.json());
 
-router.get('/', async (req, res) => res.send(await prisma.professor.findMany()));
-
-router.get('/:id', async (req, res) => {
-    const { id } = req.params;
-
+router.get('/', async (req, res) => {
     try {
-        const professor = await prisma.professor.findUniqueOrThrow({
-            where: {
-                id: id
+        const professorList = await prisma.professor.findMany({
+            select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                events: true
             }
         });
 
-        res.send(professor);
-    } catch(err) {
-        res.status(404).send(`Professor with id ${id} not found`);
+        res.send(professorList);
+    } catch (err) {
+        res.status(500).send(`There was an unexpected error: ${err}`);
     }
 });
 
@@ -30,8 +29,8 @@ router.post('/', async (req, res) => {
     try {
         const professor = await prisma.professor.create({
             data: {
-                firstName: firstName,
-                lastName: lastName
+                firstName,
+                lastName
             }
         });
 
@@ -72,9 +71,27 @@ router.delete('/:id', async (req, res) => {
             }
         });
 
-        res.send("Professor was deleted");
+        res.send("ProfessorAdmin was deleted");
     } catch (err) {
         res.send(`Professor not deleted. Error: ${err}`)
+    }
+})
+
+router.post("/:professorId/events", async (req, res) => {
+    const { professorId } = req.params;
+    const { title } = req.body;
+
+    try {
+        const event = await prisma.event.create({
+            data: {
+                title,
+                professorId
+            }
+        });
+
+        res.send(event);
+    } catch (err) {
+        res.status(500).send(`Failed to add new event. Error: ${err}`);
     }
 })
 

@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
-import Professor from './components/Professor';
+import AdminView from './components/AdminView';
+import UserView from './components/UserView'
 import professorsService from './services/professors.js';
 import axios from 'axios';
+import './App.css';
 
 const App = () => {
     const [isAdmin, setIsAdmin] = useState(false);
     const [professorsList, setProfessorsList] = useState([]);
     const [passwordField, setPasswordField] = useState("");
-    const [newProfFirstNameField, setNewProfFirstNameField] = useState("");
-    const [newProfLastNameField, setNewProfLastNameField] = useState("");
 
 
     useEffect(() => {
@@ -35,73 +35,28 @@ const App = () => {
         });
     };
 
-    const handleFirstNameChange = (event) => {
-        setNewProfFirstNameField(event.target.value);
-    }
-
-    const handleLastNameChange = (event) => {
-        setNewProfLastNameField(event.target.value);
-    }
-
-    const handleCreateProfessor = () => {
-        const createProfessorBody = {
-            firstName: newProfFirstNameField,
-            lastName: newProfLastNameField
-        }
-
-        professorsService.createProfessor(createProfessorBody).then(response => {
-            setProfessorsList(professorsList.concat(response));
-            setNewProfFirstNameField("");
-            setNewProfLastNameField("");
-        });
-    }
 
     if (isAdmin) {
         return(
-            <div>
+            <>
                 <button onClick={() => setIsAdmin(false)}>Disable Admin View</button>
-                <h1>Professors</h1>
-                <div>
-                    {professorsList.map((professor) => (
-                        <Professor
-                            key={professor.id}
-                            id={professor.id}
-                            professorsList={professorsList}
-                            setProfessorsList={setProfessorsList}
-                            firstName={professor.firstName} // Could be omitted. See TODO in Professors.jsx
-                            lastName={professor.lastName} // Could be omitted. See TODO in Professors.jsx
-                            isAdmin={isAdmin}
-                        ></Professor>
-                    ))}
-                    <div>
-                        <input type="text" name="newProfFirstNameField" value={newProfFirstNameField} onChange={handleFirstNameChange}/>
-                        <input type="text" name="newProfLastNameField" value={newProfLastNameField} onChange={handleLastNameChange}/>
-                        <button className="submit-button" onClick={() => handleCreateProfessor()}>Add Professor</button>
-                    </div>
-                </div>
-            </div>
+                <AdminView
+                    professorsList={professorsList}
+                    setProfessorsList={setProfessorsList}
+                    isAdmin={isAdmin}
+                />
+            </>
         );
     }
 
     return (
-        <div>
+        <>
             Password: <input type="password" name="passwordField" value={passwordField} onChange={handlePasswordChange}/>
             <button onClick={handleEnableAdmin}>Enable Admin View</button>
-            <h1>Professors</h1>
-            <div>
-                {professorsList.map((professor) => (
-                    <Professor
-                        key={professor.id}
-                        id={professor.id}
-                        professorsList={professorsList}
-                        setProfessorsList={setProfessorsList}
-                        firstName={professor.firstName} // Could be omitted. See TODO in Professors.jsx
-                        lastName={professor.lastName} // Could be omitted. See TODO in Professors.jsx
-                        isAdmin={isAdmin}
-                    ></Professor>
-                ))}
-            </div>
-        </div>
+            <UserView
+                professorsList={professorsList}
+            />
+        </>
     );
 };
 

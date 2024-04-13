@@ -1,19 +1,18 @@
 import { useState } from 'react';
 import eventsService from '../services/events';
 
-const Event = ({id, eventsList, setEventsList, title, isAdmin}) => {
+const Event = ({ id, eventsList, setEventsList, title, isAdmin }) => {
 
     const [titleField, setTitleField] = useState(title);
 
     const handleUpdateEvent = () => {
-        alert(`Updated ${title}`);
-
         const updatedEvent = {
             title: titleField,
         };
 
         eventsService.updateEvent(id, updatedEvent).then((response) => {
             setEventsList(eventsList.map(event => event.id === id ? response : event))
+            alert(`Updated ${title}`);
         })
     }
 
@@ -40,6 +39,7 @@ const Event = ({id, eventsList, setEventsList, title, isAdmin}) => {
             </div>
         );
     }
+
     return (
         <div>
             <li>{title}</li>
