@@ -13,6 +13,7 @@ const UserView = ({ professorsList }) => {
                 ))}
             </div>
         </>
-    )
-}
+    );
+};
+
 export default UserView;

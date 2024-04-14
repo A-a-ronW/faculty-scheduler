@@ -35,7 +35,6 @@ const App = () => {
         });
     };
 
-
     if (isAdmin) {
         return(
             <>
@@ -43,7 +42,6 @@ const App = () => {
                 <AdminView
                     professorsList={professorsList}
                     setProfessorsList={setProfessorsList}
-                    isAdmin={isAdmin}
                 />
             </>
         );

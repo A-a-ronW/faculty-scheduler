@@ -6,26 +6,9 @@ const prisma = new PrismaClient();
 
 router.use(express.json());
 
-router.post('/', async (req, res) => {
-    const { title, professorId } = req.body;
-
-    try {
-        const event = await prisma.event.create({
-            data: {
-                title : title,
-                professorId : professorId
-            }
-        });
-
-        res.send(event);
-    } catch (err) {
-        res.status(500).send(`Failed to add new event. Error: ${err}`);
-    }
-});
-
 router.patch('/:id', async (req, res) => {
     const { id } = req.params;
-    const { title, professorId } = req.body;
+    const { title } = req.body;
 
     try {
         const updatedEvent = await prisma.event.update({
@@ -33,12 +16,23 @@ router.patch('/:id', async (req, res) => {
                 id: id
             },
             data: {
-                title,
-                professorId
+                title
             }
         });
 
-        res.send(updatedEvent)
+        const updatedProfessor = await prisma.professor.findUniqueOrThrow({
+            where: {
+                id: updatedEvent.professorId
+            },
+            select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                events: true
+            }
+        })
+
+        res.send(updatedProfessor)
     } catch (err) {
         res.status(500).send(`Failed to update event with id ${id}. Error: ${err}`);
     }

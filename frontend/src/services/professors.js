@@ -20,7 +20,7 @@ const professorsService = {
         console.log(response);
     },
     createProfessorEvent: async (id, newEvent) => {
-        const response = await axios.post(`${base_url}/${id}`, newEvent);
+        const response = await axios.post(`${base_url}/${id}/events`, newEvent);
         return response.data;
     }
 };

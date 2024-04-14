@@ -20,9 +20,9 @@ const ProfessorFields = ({ professor, professorsList, setProfessorsList }) => {
         };
 
         professorsService.updateProfessor(professor.id, updatedProfessor).then((response) => {
-            setProfessorsList(professorsList.map(prof => prof.id === professor.id ? response : prof))
+            setProfessorsList(professorsList.map(prof => prof.id === professor.id ? response : prof));
             alert(`Renamed ${professor.firstName} ${professor.lastName} to ${response.firstName} ${response.lastName}`);
-        })
+        });
     };
 
     const handleDeleteProfessor = () => {
@@ -42,7 +42,7 @@ const ProfessorFields = ({ professor, professorsList, setProfessorsList }) => {
             <button className="update-button" onClick={() => handleUpdateProfessor()}>Update</button>
             <button className="delete-button" onClick={() => handleDeleteProfessor()}>Delete</button>
         </>
-    )
-}
+    );
+};
 
 export default ProfessorFields;

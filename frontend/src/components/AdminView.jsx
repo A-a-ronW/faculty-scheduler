@@ -7,14 +7,14 @@ const AdminView = ({ professorsList, setProfessorsList }) => {
             <h1>Professors</h1>
             <div>
                 <div>
-                    {professorsList.map((professor) => (
+                    {professorsList.map(professor =>
                         <ProfessorAdmin
                             key={professor.id}
                             professor={professor}
                             professorsList={professorsList}
                             setProfessorsList={setProfessorsList}
                         />
-                    ))}
+                    )}
                 </div>
                 <CreateProfessor
                     professorsList={professorsList}
@@ -22,7 +22,7 @@ const AdminView = ({ professorsList, setProfessorsList }) => {
                 />
             </div>
         </>
-    )
-}
+    );
+};
 
 export default AdminView;

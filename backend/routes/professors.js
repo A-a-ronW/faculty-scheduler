@@ -31,6 +31,12 @@ router.post('/', async (req, res) => {
             data: {
                 firstName,
                 lastName
+            },
+            select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                events: true
             }
         });
 
@@ -52,6 +58,12 @@ router.patch('/:id', async (req, res) => {
             data: {
                 firstName: firstName,
                 lastName: lastName
+            },
+            select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                events: true
             }
         });
 
@@ -82,17 +94,29 @@ router.post("/:professorId/events", async (req, res) => {
     const { title } = req.body;
 
     try {
-        const event = await prisma.event.create({
+        await prisma.event.create({
             data: {
                 title,
                 professorId
             }
         });
 
-        res.send(event);
+        const updatedProfessor = await prisma.professor.findUniqueOrThrow({
+            where: {
+                id: professorId
+            },
+            select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                events: true
+            }
+        })
+
+        res.send(updatedProfessor);
     } catch (err) {
         res.status(500).send(`Failed to add new event. Error: ${err}`);
     }
-})
+});
 
 module.exports = router;

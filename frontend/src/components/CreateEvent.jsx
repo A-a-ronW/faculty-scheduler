@@ -9,17 +9,14 @@ const CreateEvent = ({ professor, professorsList, setProfessorsList }) => {
     }
 
     const handleCreateEvent = () => {
-        const createEventBody = {
-            title : newEventTitleField,
-            professorId: professor.id
+        const newEventBody = {
+            title : newEventTitleField
         }
 
-        professorsService.createProfessorEvent(professor.id, createEventBody).then(response => {
-            const newProfessor = { ...professor, event: response };
-            const newProfessorList = professorsList.map(prof => prof.id !== professor.id ? prof : newProfessor);
+        professorsService.createProfessorEvent(professor.id, newEventBody).then(response => {
+            const newProfessorList = professorsList.map(prof => prof.id !== professor.id ? prof : response);
 
             setProfessorsList(newProfessorList);
-            // setEventsList(eventsList.concat(response));
             setNewEventTitleField("");
         });
     }
@@ -28,7 +25,7 @@ const CreateEvent = ({ professor, professorsList, setProfessorsList }) => {
         <>
             <input type="text" name="newEventTitleField" value={newEventTitleField}
                    onChange={handleNewEventTitleChange}/>
-            <button className="submit-button" onClick={() => handleCreateEvent()}>Add</button>
+            <button className="submit-button" onClick={() => handleCreateEvent()}>Add Event</button>
         </>
     )
 }
