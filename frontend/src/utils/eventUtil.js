@@ -26,11 +26,13 @@ const sortEvents = (unsortedEvents) => {
 
 const groupEventsByDay = (events) => {
     const daysOfWeek = {
+        "SUNDAY": [],
         "MONDAY": [],
         "TUESDAY": [],
         "WEDNESDAY": [],
         "THURSDAY": [],
-        "FRIDAY": []
+        "FRIDAY": [],
+        "SATURDAY": []
     };
 
     // Loop through each event
@@ -41,7 +43,6 @@ const groupEventsByDay = (events) => {
             }
         });
     });
-
 
     return daysOfWeek;
 }
