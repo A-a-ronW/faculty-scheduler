@@ -1,5 +1,6 @@
 import professorsService from "../services/professors.js";
 import { useState } from "react";
+import {toast} from "react-toastify";
 
 const CreateEvent = ({ eventEditingList, setEventEditingList, isCreating, setIsCreating, professor, professorsList, setProfessorsList }) => {
     const [eventData, setEventData] = useState({
@@ -71,6 +72,7 @@ const CreateEvent = ({ eventEditingList, setEventEditingList, isCreating, setIsC
             ]);
 
             setIsCreating(false);
+            toast("Added new event.");
         });
     };
 
