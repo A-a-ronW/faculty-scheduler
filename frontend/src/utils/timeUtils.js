@@ -9,14 +9,24 @@ const formatTime = (date) => {
     return hours + ':' + minutes + ' ' + ampm;
 };
 
+const createCurrentDate = (date) => {
+    let today = new Date()
+    today.setHours(date.getHours())
+    today.setMinutes(date.getMinutes())
+    return today
+} 
+
 const earliestStartTime = (events) => {
     let earliest = new Date();
     //default is 9am
     earliest.setHours(9);
     earliest.setMinutes(0);
     for (let i = 0; i < events.length; i++) {
-        let start = new Date(events[i].startTime)
-        earliest = ((earliest.getHours() >  start.getHours()) || ((earliest.getHours() === start.getHours()) && (earliest.getMinutes() > start.getMinutes()))) ? new Date(events[i].startTime) : earliest;
+        let start = new Date()
+        let current_class = new Date(events[i].startTime)
+        start.setHours(current_class.getHours())
+        start.setMinutes(current_class.getMinutes())
+        earliest = ((earliest.getHours() >  start.getHours()) || ((earliest.getHours() === start.getHours()) && (earliest.getMinutes() > start.getMinutes()))) ? createCurrentDate(new Date(events[i].startTime)) : earliest;
     }
     return earliest;
 };
@@ -27,8 +37,11 @@ const latestEndTime = (events) => {
     latest.setHours(17);
     latest.setMinutes(0);
     for (let i = 0; i < events.length; i++) {
-        let end = new Date(events[i].startTime)
-        latest = ((latest.getHours() < end.getHours()) || ((latest.getHours() === end.getHours()) && (latest.getMinutes() < end.getMinutes()))) ? new Date(events[i].startTime) : latest;
+        let end = new Date();
+        let current_class = new Date(events[i].startTime)
+        end.setHours(current_class.getHours())
+        end.setMinutes(current_class.getMinutes())
+        latest = ((latest.getHours() < end.getHours()) || ((latest.getHours() === end.getHours()) && (latest.getMinutes() < end.getMinutes()))) ? createCurrentDate((new Date(events[i].startTime))) : latest;
     }
     return latest;
 };
@@ -37,9 +50,12 @@ const checkAvailability = (events) => {
     //Is getting called twice per prfessor for some reason
     //Should be non-issue but noting in case of future errors
     let current_time = new Date();
+    console.log("Curent Time: " + current_time);
+    if (events.length == 0) { return false;}
 
     let earliest = earliestStartTime(events);
     let latest = latestEndTime(events);
+    console.log("Earliest: " + earliest + " Latest: " + latest);
     if (current_time < earliest || current_time > latest) { return false;}
 
     for (let i = 0; i < events.length; i++) {
