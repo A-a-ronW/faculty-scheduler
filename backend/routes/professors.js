@@ -91,13 +91,18 @@ router.delete('/:id', async (req, res) => {
 
 router.post("/:professorId/events", async (req, res) => {
     const { professorId } = req.params;
-    const { title } = req.body;
+    const { title, description, startTime, endTime, days, eventType } = req.body;
 
     try {
         await prisma.event.create({
             data: {
                 title,
-                professorId
+                description,
+                professorId,
+                startTime,
+                endTime,
+                days,
+                eventType
             }
         });
 
@@ -117,6 +122,18 @@ router.post("/:professorId/events", async (req, res) => {
     } catch (err) {
         res.status(500).send(`Failed to add new event. Error: ${err}`);
     }
+
+    // POST http://localhost:3001/professors/PROFESSORID/events
+    // Content-Type: application/json
+    //
+    // {
+    //     "title": "Calculus 101",
+    //     "description": "Introductory calculus class.",
+    //     "startTime": "2024-04-18T09:00:00Z",
+    //     "endTime": "2024-04-18T11:00:00Z",
+    //     "days": ["MONDAY", "WEDNESDAY", "FRIDAY"],
+    //     "eventType": "CLASS"
+    // }
 });
 
 module.exports = router;
