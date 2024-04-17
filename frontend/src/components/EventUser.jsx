@@ -6,9 +6,7 @@ const EventUser = ({ event }) => {
 
     return(
         <div>
-            <div>{event.title}</div>
-            <div>{formatTime(startDateObj)} to {formatTime(endDateObj)}</div>
-            <div>{event.days.map(day => (<span key={day}>{day} </span>))}</div>
+            <div>{event.title} {formatTime(startDateObj)} to {formatTime(endDateObj)}</div>
         </div>
     );
 };
