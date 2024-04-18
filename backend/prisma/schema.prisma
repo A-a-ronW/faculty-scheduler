@@ -26,8 +26,8 @@ model Event {
   id          String      @id @default(uuid())
   title       String
   description String?
-  startTime   DateTime    @db.Time()
-  endTime     DateTime    @db.Time()
+  startTime   String
+  endTime     String
   days        String[]
   eventType   EventType   @default(CLASS)
   professorId String
