@@ -28,7 +28,7 @@ model Event {
   description String?
   startTime   DateTime    @db.Time()
   endTime     DateTime    @db.Time()
-  days        DayOfWeek[]
+  days        String[]
   eventType   EventType   @default(CLASS)
   professorId String
   professor   Professor   @relation(fields: [professorId], references: [id], onDelete: Cascade)
@@ -37,14 +37,4 @@ model Event {
 enum EventType {
   CLASS
   MEETING
-}
-
-enum DayOfWeek {
-  MONDAY
-  TUESDAY
-  WEDNESDAY
-  THURSDAY
-  FRIDAY
-  SATURDAY
-  SUNDAY
 }
