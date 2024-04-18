@@ -26,7 +26,10 @@ const CreateEvent = ({ professor, professorsList, setProfessorsList }) => {
     };
     const handleCreateEvent = () => {
         const newEventBody = {
-            title : newEventTitleField
+            title : newEventTitleField,
+            days: selectedDays,
+            startTime: new Date(),
+            endTime: new Date()
         }
 
         professorsService.createProfessorEvent(professor.id, newEventBody).then(response => {
