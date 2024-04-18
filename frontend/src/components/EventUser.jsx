@@ -1,4 +1,5 @@
 import formatTime from "./../utils/timeUtils";
+import formatDays from "./../utils/dayUtils";
 
 const EventUser = ({ event }) => {
     const startDateObj = new Date(event.startTime);
@@ -6,7 +7,7 @@ const EventUser = ({ event }) => {
 
     return(
         <div>
-            <div>{event.title} {formatTime(startDateObj)} to {formatTime(endDateObj)}</div>
+            <div>{event.title} {formatTime(startDateObj)} to {formatTime(endDateObj)} {formatDays(event.days)}</div>
         </div>
     );
 };
