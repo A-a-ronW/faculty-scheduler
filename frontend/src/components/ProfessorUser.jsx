@@ -4,7 +4,7 @@ const ProfessorUser = ({ professor }) => {
     return(
         <>
             <div className='prof-div'>
-                {professor.firstName} {professor.lastName}
+                <h2>{professor.firstName} {professor.lastName}</h2>
 
                 {professor.events.map(event =>
                     <EventUser

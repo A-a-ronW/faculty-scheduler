@@ -1,86 +1,139 @@
 import professorsService from "../services/professors.js";
-import validateTime from "../utils/timeUtils";
-import {useState} from "react";
+import { useState } from "react";
 
-const CreateEvent = ({ professor, professorsList, setProfessorsList }) => {
-    const [newEventTitleField, setNewEventTitleField] = useState("");
-    const [selectedDays, setSelectedDays] = useState([]);
-    const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [newEventStartTimeField, setNewEventStartTimeField] = useState("");
-    const [newEventEndTimeField, setNewEventEndTimeField] = useState("");
+const CreateEvent = ({ eventEditingList, setEventEditingList, isCreating, setIsCreating, professor, professorsList, setProfessorsList }) => {
+    const [eventData, setEventData] = useState({
+        title: '',
+        startTime: '',
+        endTime: '',
+        days: []
+    });
 
-    const handleNewEventTitleChange = (event) => {
-        setNewEventTitleField(event.target.value);
+    const handleEnableIsCreating = () => {
+        const newEventEditingList = eventEditingList.map(thisEvent => {
+            return {
+                ...thisEvent,
+                isEditing: false
+            };
+        });
+
+        setIsCreating(true);
+        setEventEditingList(newEventEditingList);
     }
 
-    const handleNewEventStartTimeChange = (event) => {
-        setNewEventStartTimeField(event.target.value);
-    }
+    const handleChange = (event) => {
+        const { name, value, type, checked } = event.target;
+        if (type === "checkbox") {
+            setEventData(prevState => ({
+                ...prevState,
+                days: checked
+                    ? [...prevState.days, name]
+                    : prevState.days.filter(day => day !== name)
+            }));
+        } else {
+            setEventData(prevState => ({
+                ...prevState,
+                [name]: value
+            }));
+        }
+    };
 
-    const handleNewEventEndTimeChange = (event) => {
-        setNewEventEndTimeField(event.target.value);
-    }
+    const handleSubmit = (event) => {
+        event.preventDefault();
 
-    const handleSelect = (event) => {
-        const { name, checked } = event.target;
-        setSelectedDays(prevState => {
-            if (checked) {
-                // Add to array if checked
-                return [...prevState, name];
-            } else {
-                // Remove from array if unchecked
-                return prevState.filter(item => item !== name);
-            }
+        const eventDate = new Date();
+        const startTimeParts = eventData.startTime.split(':');
+        const endTimeParts = eventData.endTime.split(':');
+        const startDate = new Date(eventDate.setHours(startTimeParts[0], startTimeParts[1], 0));
+        const endDate = new Date(eventDate.setHours(endTimeParts[0], endTimeParts[1], 0));
+
+        const eventPayload = {
+            ...eventData,
+            startTime: startDate,
+            endTime: endDate
+        };
+
+        professorsService.createProfessorEvent(professor.id, eventPayload).then(response => {
+            const newProfessorList = professorsList.map(prof => prof.id !== professor.id ? prof : response);
+
+            setProfessorsList(newProfessorList);
+
+            setEventData({
+                title: '',
+                startTime: '',
+                endTime: '',
+                days: []
+            })
+
+            setEventEditingList(currentList => [
+                ...currentList,
+                { eventId: response.id, isEditing: false }
+            ]);
+
+            setIsCreating(false);
         });
     };
-    const handleCreateEvent = () => {
-        if (validateTime(newEventStartTimeField) && validateTime(newEventEndTimeField)) {
-            const newEventBody = {
-                title : newEventTitleField,
-                days: selectedDays,
-                startTime: newEventStartTimeField,
-                endTime: newEventEndTimeField
-            }
-    
-            professorsService.createProfessorEvent(professor.id, newEventBody).then(response => {
-                const newProfessorList = professorsList.map(prof => prof.id !== professor.id ? prof : response);
-    
-                setProfessorsList(newProfessorList);
-                setNewEventTitleField("");
-                setNewEventStartTimeField("");
-                setNewEventEndTimeField("");
-                setSelectedDays([]);
-            });
-        }
-    }
-    return (
-        <>
-            <input type="text" name="newEventTitleField" value={newEventTitleField} onChange={handleNewEventTitleChange}/>
-            <input type="text" name="newEventStartTimeField" value={newEventStartTimeField} onChange={handleNewEventStartTimeChange}/>
-            <input type="text" name="newEventEndTimeField" value={newEventEndTimeField} onChange={handleNewEventEndTimeChange}/>
-            <fieldset>
-                <button onClick={() => setIsDropdownOpen((prevState) => !prevState)}>
-                    Select Days
-                </button>
-                {isDropdownOpen && (
-                    <div className="panel">
-                        {daysOfWeek.map((day) => (
-                            <fieldset key={day}>
-                                <input id={'input-${day}'} 
-                                    onChange={handleSelect}
-                                    type="checkbox" 
-                                    name={day}
-                                />
-                                <label htmlFor={'input-${day}'}>{day}</label>
-                            </fieldset>
-                        ))}
+
+    const days = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"];
+
+    if (isCreating) {
+        return (
+            <div>
+                <button onClick={() => setIsCreating(false)}>Hide</button>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label>Class Name: </label>
+                        <input
+                            type="text"
+                            name="title"
+                            value={eventData.title}
+                            onChange={handleChange}
+                        />
                     </div>
-                )}
-            </fieldset>
-            <button className="submit-button" onClick={() => handleCreateEvent()}>Add Event</button>
-        </>
-    )
+                    <div>
+                        <label>Start Time: </label>
+                        <input
+                            type="time"
+                            name="startTime"
+                            value={eventData.startTime}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div>
+                        <label>End Time: </label>
+                        <input
+                            type="time"
+                            name="endTime"
+                            value={eventData.endTime}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <fieldset>
+                        <legend>Days of the Week:</legend>
+                        {days.map(day => (
+                            <div key={day}>
+                                <input
+                                    type="checkbox"
+                                    id={day}
+                                    name={day}
+                                    checked={eventData.days.includes(day)}
+                                    onChange={handleChange}
+                                />
+                                <label htmlFor={day}>{day}</label>
+                            </div>
+                        ))}
+                    </fieldset>
+                    <button type="submit">Add Event</button>
+                </form>
+            </div>
+        );
+    } else {
+        return (
+            <div>
+                <button onClick={() => handleEnableIsCreating()}>Add a class for {professor.firstName} {professor.lastName}</button>
+            </div>
+        )
+    }
 }
 
 export default CreateEvent;

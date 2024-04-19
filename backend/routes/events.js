@@ -8,7 +8,7 @@ router.use(express.json());
 
 router.patch('/:id', async (req, res) => {
     const { id } = req.params;
-    const { title } = req.body;
+    const { title, startTime, endTime, days } = req.body;
 
     try {
         const updatedEvent = await prisma.event.update({
@@ -16,7 +16,10 @@ router.patch('/:id', async (req, res) => {
                 id: id
             },
             data: {
-                title
+                title,
+                startTime,
+                endTime,
+                days
             }
         });
 
@@ -32,7 +35,7 @@ router.patch('/:id', async (req, res) => {
             }
         })
 
-        res.send(updatedProfessor)
+       res.send(updatedProfessor)
     } catch (err) {
         res.status(500).send(`Failed to update event with id ${id}. Error: ${err}`);
     }

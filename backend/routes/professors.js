@@ -83,7 +83,7 @@ router.delete('/:id', async (req, res) => {
             }
         });
 
-        res.send("ProfessorAdmin was deleted");
+        res.send("Professor was deleted");
     } catch (err) {
         res.send(`Professor not deleted. Error: ${err}`)
     }
@@ -122,18 +122,6 @@ router.post("/:professorId/events", async (req, res) => {
     } catch (err) {
         res.status(500).send(`Failed to add new event. Error: ${err}`);
     }
-
-    // POST http://localhost:3001/professors/PROFESSORID/events
-    // Content-Type: application/json
-    //
-    // {
-    //     "title": "Calculus 101",
-    //     "description": "Introductory calculus class.",
-    //     "startTime": "2024-04-18T09:00:00Z",
-    //     "endTime": "2024-04-18T11:00:00Z",
-    //     "days": ["MONDAY", "WEDNESDAY", "FRIDAY"],
-    //     "eventType": "CLASS"
-    // }
 });
 
 module.exports = router;

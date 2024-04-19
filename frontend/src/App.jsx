@@ -49,8 +49,9 @@ const App = () => {
 
     return (
         <>
-            Password: <input type="password" name="passwordField" value={passwordField} onChange={handlePasswordChange}/>
             <button onClick={handleEnableAdmin}>Enable Admin View</button>
+            <span> Password: <input type="password" name="passwordField" value={passwordField}
+                                   onChange={handlePasswordChange}/></span>
             <UserView
                 professorsList={professorsList}
             />

@@ -1,25 +1,83 @@
 import { useState } from 'react';
 import eventsService from '../services/events';
-import validateTime from '../utils/timeUtils';
 
-const EventAdmin = ({ event, professorsList, setProfessorsList }) => {
-    const [titleField, setTitleField] = useState(event.title);
-    const [startTimeField, setStartTimeField] = useState(event.startTime);
-    const [endTimeField, setEndTimeField] = useState(event.endTime);
+const EventAdmin = ({ eventEditingList, setEventEditingList, setIsCreating, event, professorsList, setProfessorsList }) => {
+    const eventId = event.id;
+    const professorId = event.professorId;
+    const startTimeObj = new Date(event.startTime);
+    const endTimeObj = new Date(event.endTime);
+    const startTime = String(startTimeObj.getHours()).padStart(2,0) + ":" + String(startTimeObj.getMinutes()).padStart(2,0);
+    const endTime = String(endTimeObj.getHours()).padStart(2,0) + ":" + String(endTimeObj.getMinutes()).padStart(2,0);
 
-    const handleUpdateEvent = () => {
-        if (validateTime(startTimeField) && validateTime(endTimeField)) {
-            const updatedEvent = { 
-                title: titleField,
-                startTime: startTimeField,
-                endTime: endTimeField
-             };
-    
-            eventsService.updateEvent(event.id, updatedEvent).then(response => {
-                setProfessorsList(professorsList.map(prof => prof.id === response.id ? response : prof));
-                alert(`Updated ${event.title}`);
-            });
+    const [eventData, setEventData] = useState({
+        title: event.title,
+        startTime: startTime,
+        endTime: endTime,
+        days: event.days
+    });
+
+    const days = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"];
+
+    const handleEnableEditingThis = () => {
+        const newEventEditingList = eventEditingList.map(thisEvent => {
+            return {
+                ...thisEvent,
+                isEditing: thisEvent.eventId === event.id
+            };
+        });
+
+        setEventEditingList(newEventEditingList);
+        setIsCreating(false);
+    };
+
+    const handleDisableEditingThis = () => {
+        const newEventEditingList = eventEditingList.map(thisEvent => {
+            return {
+                ...thisEvent,
+                isEditing: false
+            };
+        });
+
+        setEventEditingList(newEventEditingList);
+    };
+
+    const handleChange = (event) => {
+        const { name, value, type, checked } = event.target;
+        if (type === "checkbox") {
+            setEventData(prevState => ({
+                ...prevState,
+                days: checked
+                    ? [...prevState.days, name]
+                    : prevState.days.filter(day => day !== name)
+            }));
+        } else {
+            setEventData(prevState => ({
+                ...prevState,
+                [name]: value
+            }));
         }
+    };
+
+    const handleUpdateEvent = (event) => {
+        event.preventDefault();
+
+        const eventDate = new Date();
+        const startTimeParts = eventData.startTime.split(':');
+        const endTimeParts = eventData.endTime.split(':');
+        const startDate = new Date(eventDate.setHours(startTimeParts[0], startTimeParts[1], 0));
+        const endDate = new Date(eventDate.setHours(endTimeParts[0], endTimeParts[1], 0));
+
+        const eventPayload = {
+            ...eventData,
+            startTime: startDate,
+            endTime: endDate
+        };
+        
+        eventsService.updateEvent(eventId, eventPayload).then(response => {
+            const newProfessorList = professorsList.map(prof => prof.id !== professorId ? prof : response);
+
+            setProfessorsList(newProfessorList);
+        });
     };
 
     const handleDeleteEvent = () => {
@@ -28,12 +86,12 @@ const EventAdmin = ({ event, professorsList, setProfessorsList }) => {
         if (confirmation) {
             eventsService.deleteEvent(event.id).then(() => {
                 const newProfessorsList = professorsList.map(prof => {
-                   const newEvents = prof.events.filter(oldEvent => oldEvent.id !== event.id)
+                    const newEvents = prof.events.filter(oldEvent => oldEvent.id !== event.id)
 
-                   return {
-                       ...prof,
-                       events: newEvents
-                   }
+                    return {
+                        ...prof,
+                        events: newEvents
+                    }
                 });
 
                 setProfessorsList(newProfessorsList);
@@ -41,27 +99,71 @@ const EventAdmin = ({ event, professorsList, setProfessorsList }) => {
         }
     };
 
-    const handleTitleChange = (event) => {
-        setTitleField(event.target.value);
-    }
+    const eventEditEntry = eventEditingList.find(entry => entry.eventId === event.id);
+    const isEditing = eventEditEntry ? eventEditEntry.isEditing : false;
 
-    const handleStartTimeChange = (event) => {
-        setStartTimeField(event.target.value);
+    if (isEditing) {
+        return (
+            <div>
+                <span>{event.title} </span>
+                <button onClick={() => handleDisableEditingThis()}>Edit</button>
+                <button className="delete-button" onClick={() => handleDeleteEvent()}>Delete</button>
+                <form onSubmit={handleUpdateEvent}>
+                    <div>
+                        <label>Class Name: </label>
+                        <input
+                            type="text"
+                            name="title"
+                            value={eventData.title}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div>
+                        <label>Start Time: </label>
+                        <input
+                            type="time"
+                            name="startTime"
+                            value={eventData.startTime}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div>
+                        <label>End Time: </label>
+                        <input
+                            type="time"
+                            name="endTime"
+                            value={eventData.endTime}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <fieldset>
+                        <legend>Days of the Week:</legend>
+                        {days.map(day => (
+                            <div key={day}>
+                                <input
+                                    type="checkbox"
+                                    id={day}
+                                    name={day}
+                                    checked={eventData.days.includes(day)}
+                                    onChange={handleChange}
+                                />
+                                <label htmlFor={day}>{day}</label>
+                            </div>
+                        ))}
+                    </fieldset>
+                    <button type="submit">Update Event</button>
+                </form>
+            </div>
+        );
+    } else {
+        return (
+            <div>
+                <span>{event.title} </span>
+                <button onClick={() => handleEnableEditingThis()}>Edit</button>
+                <button className="delete-button" onClick={() => handleDeleteEvent()}>Delete</button>
+            </div>
+        )
     }
-
-    const handleEndTimeChange = (event) => {
-        setEndTimeField(event.target.value);
-    }
-
-    return (
-        <div>
-            <input type="text" name="title" value={titleField} onChange={handleTitleChange}/>
-            <input type="text" name="startTime" value={startTimeField} onChange={handleStartTimeChange}/>
-            <input type="text" name="endTime" value={endTimeField} onChange={handleEndTimeChange}/>
-            <button className="update-button" onClick={() => handleUpdateEvent()}>Update</button>
-            <button className="delete-button" onClick={() => handleDeleteEvent()}>Delete</button>
-        </div>
-    );
-}
+};
 
 export default EventAdmin;
