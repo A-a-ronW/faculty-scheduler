@@ -92,7 +92,7 @@ router.delete('/:id', async (req, res) => {
 router.post("/:professorId/events", async (req, res) => {
     const { professorId } = req.params;
     const { title, description, startTime, endTime, days, eventType } = req.body;
-
+    
     try {
         await prisma.event.create({
             data: {
