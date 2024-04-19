@@ -11,7 +11,6 @@ const ProfessorsRoot = () => {
     const [passwordField, setPasswordField] = useState("");
     const [displayPasswordField, setDisplayPasswordField] = useState(false);
 
-
     useEffect(() => {
         professorsService.getProfessors()
             .then(response => {
