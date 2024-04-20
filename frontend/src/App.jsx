@@ -36,18 +36,15 @@ const App = () => {
         });
     }
 
-    const handleEnableAdmin = () => {
-        return (
-            <>
-                <span> Password: <input type="password" name="passwordField" value={passwordField} onChange={handlePasswordChange}/></span>
-            </>
-        );
+    const handleDisableAdmin = () => {
+        setIsAdmin(false);
+        setDisplayPasswordField(false);
     }
 
     if (isAdmin) {
         return(
             <>
-                <button onClick={() => setIsAdmin(false)}>Disable Admin View</button>
+                <button onClick={() => handleDisableAdmin()}>Disable Admin View</button>
                 <AdminView
                     professorsList={professorsList}
                     setProfessorsList={setProfessorsList}
@@ -58,7 +55,7 @@ const App = () => {
 
     return (
         <>
-            <button onClick={() => setDisplayPasswordField(!displayPasswordField)}  >Enable Admin View</button>
+            <button onClick={() => setDisplayPasswordField(!displayPasswordField)}>Enable Admin View</button>
             {displayPasswordField ? <div><span> Password: <input type="password" name="passwordField" value={passwordField} onChange={handlePasswordChange}/></span> <button onClick={authPassword}>Submit</button></div> : null}
             <UserView
                 professorsList={professorsList}
