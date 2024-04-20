@@ -1,65 +1,23 @@
-import EventUser from "./EventUser";
 import Availability from "./Availability"
-import {sortEvents, groupEventsByDay} from "../utils/eventUtil";
+import EventsGrouped from "./EventsGrouped";
+import {groupEventsByDay} from "../utils/eventUtil";
 import {checkAvailability} from "./../utils/timeUtils";
 
 const ProfessorUser = ({ professor }) => {
-    const sortedEvents = sortEvents(professor.events.concat());
+    const groupedEvents = groupEventsByDay(professor.events.concat());
 
-    let isAvailable = checkAvailability(sortedEvents);
-    console.log(isAvailable);
-
-    const groupedDays = groupEventsByDay(sortedEvents);
-    console.log(groupedDays);
-
-    return (
+    return(
         <>
             <div className='prof-div'>
-                <h2>{professor.firstName} {professor.lastName} <Availability isAvailable={isAvailable}/></h2>
-
-                {sortedEvents.map(event =>
-                    <EventUser
-                        key={event.id}
-                        event={event}
-                    />
-                )}
+                <h2>{professor.firstName} {professor.lastName} <Availability isAvailable={checkAvailability(professor.events)}/></h2>
+                <EventsGrouped day={"MONDAY"} groupedEvents={groupedEvents.MONDAY} />
+                <EventsGrouped day={"TUESDAY"} groupedEvents={groupedEvents.TUESDAY} />
+                <EventsGrouped day={"WEDNESDAY"} groupedEvents={groupedEvents.WEDNESDAY} />
+                <EventsGrouped day={"THURSDAY"} groupedEvents={groupedEvents.THURSDAY}/>
+                <EventsGrouped day={"FRIDAY"} groupedEvents={groupedEvents.FRIDAY} />
             </div>
         </>
     );
-
-
-    // if (availability) {
-    //     return (
-    //         <>
-    //             <div className='prof-div'>
-    //                 <h2>{professor.firstName} {professor.lastName} [Available]</h2>
-    //
-    //                 {sortedEvents.map(event =>
-    //                     <EventUser
-    //                         key={event.id}
-    //                         event={event}
-    //                     />
-    //                 )}
-    //             </div>
-    //         </>
-    //     );
-    // }
-    // else {
-    //     return (
-    //         <>
-    //             <div className='prof-div'>
-    //                 <h2>{professor.firstName} {professor.lastName} [Unavailable]</h2>
-    //
-    //                 {sortedEvents.map(event =>
-    //                     <EventUser
-    //                         key={event.id}
-    //                         event={event}
-    //                     />
-    //                 )}
-    //             </div>
-    //         </>
-    //     );
-    // }
 };
 
 export default ProfessorUser;
