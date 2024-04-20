@@ -1,5 +1,6 @@
 import {useState} from "react";
 import professorsService from "../services/professors.js";
+import {toast} from "react-toastify";
 
 const ProfessorFields = ({ professor, professorsList, setProfessorsList }) => {
     const [firstNameField, setFirstNameField] = useState(professor.firstName);
@@ -21,7 +22,7 @@ const ProfessorFields = ({ professor, professorsList, setProfessorsList }) => {
 
         professorsService.updateProfessor(professor.id, updatedProfessor).then((response) => {
             setProfessorsList(professorsList.map(prof => prof.id === professor.id ? response : prof));
-            alert(`Renamed ${professor.firstName} ${professor.lastName} to ${response.firstName} ${response.lastName}`);
+            toast(`Renamed ${professor.firstName} ${professor.lastName} to ${response.firstName} ${response.lastName}`);
         });
     };
 
@@ -31,6 +32,7 @@ const ProfessorFields = ({ professor, professorsList, setProfessorsList }) => {
         if (confirmation) {
             professorsService.deleteProfessor(professor.id).then(() => {
                 setProfessorsList(professorsList.filter(prof => prof.id !== professor.id));
+                toast("Deleted professor.");
             });
         }
     };

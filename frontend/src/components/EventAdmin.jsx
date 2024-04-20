@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import eventsService from '../services/events';
+import {toast} from "react-toastify";
 
 const EventAdmin = ({ eventEditingList, setEventEditingList, setIsCreating, event, professorsList, setProfessorsList }) => {
     const eventId = event.id;
@@ -77,6 +78,7 @@ const EventAdmin = ({ eventEditingList, setEventEditingList, setIsCreating, even
             const newProfessorList = professorsList.map(prof => prof.id !== professorId ? prof : response);
 
             setProfessorsList(newProfessorList);
+            toast("Updated event.");
         });
     };
 
@@ -95,6 +97,7 @@ const EventAdmin = ({ eventEditingList, setEventEditingList, setIsCreating, even
                 });
 
                 setProfessorsList(newProfessorsList);
+                toast("Deleted event.");
             });
         }
     };

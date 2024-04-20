@@ -1,5 +1,6 @@
 import {useState} from "react";
 import professorsService from "../services/professors.js";
+import {toast} from "react-toastify";
 
 const CreateProfessor = ({ professorsList, setProfessorsList }) => {
     const [newProfFirstNameField, setNewProfFirstNameField] = useState("");
@@ -23,6 +24,7 @@ const CreateProfessor = ({ professorsList, setProfessorsList }) => {
             setProfessorsList(professorsList.concat(response));
             setNewProfFirstNameField("");
             setNewProfLastNameField("");
+            toast("Created new professor.");
         });
     };
 
