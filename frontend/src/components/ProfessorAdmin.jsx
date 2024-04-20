@@ -17,7 +17,7 @@ const ProfessorAdmin = ({ professor, professorsList, setProfessorsList }) => {
     const [eventEditingList, setEventEditingList] = useState(defaultEventEditingList)
     const [isCreating, setIsCreating] = useState(false);
 
-    useEffect((sortedEvents) => {
+    useEffect(() => {
         const newEventEditingList = sortedEvents.map(event => ({
             eventId: event.id,
             isEditing: false
