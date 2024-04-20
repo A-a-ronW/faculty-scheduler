@@ -1,22 +1,18 @@
 const sortEvents = (unsortedEvents) => {
     return unsortedEvents.slice().sort((a, b) => {
-        // Convert start times to Date objects
         const dateA = new Date(a.startTime);
         const dateB = new Date(b.startTime);
 
-        // Extract hours and minutes for comparison
         const hoursA = dateA.getHours();
         const minutesA = dateA.getMinutes();
         const hoursB = dateB.getHours();
         const minutesB = dateB.getMinutes();
 
-        // Compare hours first
         if (hoursA < hoursB) {
             return -1;
         } else if (hoursA > hoursB) {
             return 1;
         } else {
-            // If hours are equal, compare minutes
             if (minutesA < minutesB) {
                 return -1;
             } else if (minutesA > minutesB) {
@@ -28,4 +24,26 @@ const sortEvents = (unsortedEvents) => {
     });
 }
 
-export default sortEvents;
+const groupEventsByDay = (events) => {
+    const daysOfWeek = {
+        "MONDAY": [],
+        "TUESDAY": [],
+        "WEDNESDAY": [],
+        "THURSDAY": [],
+        "FRIDAY": []
+    };
+
+    // Loop through each event
+    events.forEach(event => {
+        event.days.forEach(day => {
+            if (daysOfWeek.hasOwnProperty(day)) {
+                daysOfWeek[day].push(event);
+            }
+        });
+    });
+
+
+    return daysOfWeek;
+}
+
+export { sortEvents, groupEventsByDay };

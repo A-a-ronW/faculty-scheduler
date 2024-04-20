@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import CreateEvent from './CreateEvent';
 import ProfessorFields from "./ProfessorFields.jsx";
 import EventAdmin from "./EventAdmin";
-import sortEvents from "../utils/eventUtil";
+import {sortEvents} from "../utils/eventUtil";
 
 const ProfessorAdmin = ({ professor, professorsList, setProfessorsList }) => {
     const sortedEvents = sortEvents(professor.events);
