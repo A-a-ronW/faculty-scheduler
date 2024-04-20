@@ -18,9 +18,11 @@ const checkAvailability = (events) => {
         let start = new Date(events[i].startTime);
         let end = new Date(events[i].endTime);
 
+        console.log(start, current_time, end);
         let availability = (start <= current_time && end >= current_time) ? false : true;
-        return availability;
+        if (availability == false) { return false;}
     }
+    return true
 };
 
 export { checkAvailability, formatTime };
