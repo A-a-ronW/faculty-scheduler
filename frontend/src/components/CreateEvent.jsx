@@ -79,7 +79,7 @@ const CreateEvent = ({ eventEditingList, setEventEditingList, isCreating, setIsC
     if (isCreating) {
         return (
             <div>
-                <button onClick={() => setIsCreating(false)}>Hide</button>
+                <button onClick={() => setIsCreating(false)}>Hide add a class</button>
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label>Class Name: </label>
@@ -130,7 +130,7 @@ const CreateEvent = ({ eventEditingList, setEventEditingList, isCreating, setIsC
     } else {
         return (
             <div>
-                <button onClick={() => handleEnableIsCreating()}>Add a class for {professor.firstName} {professor.lastName}</button>
+                <button onClick={() => handleEnableIsCreating()}>Show add a class for {professor.firstName} {professor.lastName}</button>
             </div>
         )
     }

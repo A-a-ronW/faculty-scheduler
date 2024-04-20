@@ -106,7 +106,7 @@ const EventAdmin = ({ eventEditingList, setEventEditingList, setIsCreating, even
         return (
             <div>
                 <span>{event.title} </span>
-                <button onClick={() => handleDisableEditingThis()}>Edit</button>
+                <button onClick={() => handleDisableEditingThis()}>Hide Edit</button>
                 <button className="delete-button" onClick={() => handleDeleteEvent()}>Delete</button>
                 <form onSubmit={handleUpdateEvent}>
                     <div>
@@ -159,7 +159,7 @@ const EventAdmin = ({ eventEditingList, setEventEditingList, setIsCreating, even
         return (
             <div>
                 <span>{event.title} </span>
-                <button onClick={() => handleEnableEditingThis()}>Edit</button>
+                <button onClick={() => handleEnableEditingThis()}>Show Edit</button>
                 <button className="delete-button" onClick={() => handleDeleteEvent()}>Delete</button>
             </div>
         )
