@@ -9,6 +9,7 @@ const App = () => {
     const [isAdmin, setIsAdmin] = useState(false);
     const [professorsList, setProfessorsList] = useState([]);
     const [passwordField, setPasswordField] = useState("");
+    const [displayPasswordField, setDisplayPasswordField] = useState(false);
 
 
     useEffect(() => {
@@ -25,7 +26,7 @@ const App = () => {
         setPasswordField(event.target.value);
     };
 
-    const handleEnableAdmin = () => {
+    const authPassword = () => {
         const passwordRequestBody = { password: passwordField };
 
         axios.post('http://localhost:3001/authenticate', passwordRequestBody).then((response) => {
@@ -33,7 +34,15 @@ const App = () => {
                 setIsAdmin(true);
             }
         });
-    };
+    }
+
+    const handleEnableAdmin = () => {
+        return (
+            <>
+                <span> Password: <input type="password" name="passwordField" value={passwordField} onChange={handlePasswordChange}/></span>
+            </>
+        );
+    }
 
     if (isAdmin) {
         return(
@@ -49,9 +58,8 @@ const App = () => {
 
     return (
         <>
-            <button onClick={handleEnableAdmin}>Enable Admin View</button>
-            <span> Password: <input type="password" name="passwordField" value={passwordField}
-                                   onChange={handlePasswordChange}/></span>
+            <button onClick={() => setDisplayPasswordField(!displayPasswordField)}  >Enable Admin View</button>
+            {displayPasswordField ? <div><span> Password: <input type="password" name="passwordField" value={passwordField} onChange={handlePasswordChange}/></span> <button onClick={authPassword}>Submit</button></div> : null}
             <UserView
                 professorsList={professorsList}
             />
