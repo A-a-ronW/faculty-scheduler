@@ -2,9 +2,12 @@ import { useState, useEffect } from 'react';
 import CreateEvent from './CreateEvent';
 import ProfessorFields from "./ProfessorFields.jsx";
 import EventAdmin from "./EventAdmin";
+import sortEvents from "../utils/eventUtil";
 
 const ProfessorAdmin = ({ professor, professorsList, setProfessorsList }) => {
-    const defaultEventEditingList = professor.events.map(event => {
+    const sortedEvents = sortEvents(professor.events);
+
+    const defaultEventEditingList = sortedEvents.map(event => {
         return {
             eventId: event.id,
             isEditing: false
@@ -14,11 +17,12 @@ const ProfessorAdmin = ({ professor, professorsList, setProfessorsList }) => {
     const [eventEditingList, setEventEditingList] = useState(defaultEventEditingList)
     const [isCreating, setIsCreating] = useState(false);
 
-    useEffect(() => {
-        const newEventEditingList = professor.events.map(event => ({
+    useEffect((sortedEvents) => {
+        const newEventEditingList = sortedEvents.map(event => ({
             eventId: event.id,
             isEditing: false
         }));
+
         setEventEditingList(newEventEditingList);
     }, [professor.events]);
 
@@ -31,7 +35,7 @@ const ProfessorAdmin = ({ professor, professorsList, setProfessorsList }) => {
                 setProfessorsList={setProfessorsList}
             />
             <div>
-                {professor.events.map(event =>
+                {sortedEvents.map(event =>
                     <EventAdmin
                         key={event.id}
                         eventEditingList={eventEditingList}
