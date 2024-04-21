@@ -4,6 +4,7 @@ import professorsService from "../services/professors.js";
 import axios from "axios";
 import AdminView from "./AdminView.jsx";
 import UserView from "./UserView.jsx";
+import "./styles/ProfessorsRoot.css";
 
 const ProfessorsRoot = () => {
     const [isAdmin, setIsAdmin] = useState(false);
@@ -44,22 +45,32 @@ const ProfessorsRoot = () => {
     if (isAdmin) {
         return(
             <>
-                <button onClick={() => handleDisableAdmin()}>Disable Admin View</button>
-                <AdminView
-                    professorsList={professorsList}
-                    setProfessorsList={setProfessorsList}
-                />
+                <button className="admin-button" onClick={() => handleDisableAdmin()}>Disable Admin View</button>
+                <div className="app-container">
+                    <AdminView
+                        professorsList={professorsList}
+                        setProfessorsList={setProfessorsList}
+                    />
+                </div>
             </>
         );
     }
 
     return (
         <>
-            <button onClick={() => setDisplayPasswordField(!displayPasswordField)}>Enable Admin View</button>
-            {displayPasswordField ? <div><span> Password: <input type="password" name="passwordField" value={passwordField} onChange={handlePasswordChange}/></span> <button onClick={authPassword}>Submit</button></div> : null}
-            <UserView
-                professorsList={professorsList}
-            />
+            <div>
+                <button className="admin-button" onClick={() => setDisplayPasswordField(!displayPasswordField)}>Enable Admin View</button>
+                {displayPasswordField ?
+                    <div className="admin-button"> Password: <input type="password" name="passwordField" value={passwordField} onChange={handlePasswordChange}/>
+                        <button onClick={authPassword}>Submit</button>
+                    </div>
+                : null}
+            </div>
+            <div className="app-container">
+                <UserView
+                    professorsList={professorsList}
+                />
+            </div>
         </>
     );
 };

@@ -1,7 +1,7 @@
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import './App.css';
 import ProfessorsRoot from "./components/ProfessorsRoot.jsx";
+import "react-toastify/dist/ReactToastify.css";
+import "./App.css"
 
 const App = () => {
     return(
@@ -19,7 +19,9 @@ const App = () => {
                 theme="light"
                 transition: Bounce
             />
-            <ProfessorsRoot/>
+            <div>
+                <ProfessorsRoot />
+            </div>
         </>
     )
 };

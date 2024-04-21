@@ -47,23 +47,19 @@ const latestEndTime = (events) => {
 };
 
 const checkAvailability = (events) => {
-    //Is getting called twice per prfessor for some reason
-    //Should be non-issue but noting in case of future errors
     let current_time = new Date();
-    console.log("Curent Time: " + current_time);
-    if (events.length == 0) { return false;}
+    if (events.length === 0) { return false;}
 
     let earliest = earliestStartTime(events);
     let latest = latestEndTime(events);
-    console.log("Earliest: " + earliest + " Latest: " + latest);
     if (current_time < earliest || current_time > latest) { return false;}
 
     for (let i = 0; i < events.length; i++) {
         let start = new Date(events[i].startTime);
         let end = new Date(events[i].endTime);
 
-        let availability = (start <= current_time && end >= current_time) ? false : true;
-        if (availability == false) { return false;}
+        let availability = (!(start <= current_time && end >= current_time));
+        if (availability === false) { return false;}
     }
     return true
 };

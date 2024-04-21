@@ -1,7 +1,4 @@
-div {
-    margin: 10px;
-}
-
-.admin-button {
-    align-content: right;
+body {
+    background: rgb(234, 217, 198);
+    color: #3b3838;
 }
