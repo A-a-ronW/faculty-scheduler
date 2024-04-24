@@ -1,5 +1,6 @@
 .professors-list {
-    margin: 5% 20vw 5% 20vw;
+    max-width: clamp(360px, 60vw, 1000px);
+    margin: auto;
 }
 
 .border-container {

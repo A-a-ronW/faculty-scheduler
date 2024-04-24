@@ -14,13 +14,20 @@ const Clock = ({time, setTime}) => {
         };
     }, [setTime]);
 
+    const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
     return (
         <div id="clock">
-            <div>
-                {time.toLocaleDateString('en-US', {dateStyle: "full"})}
-            </div>
-            <div>
+            <div id="clock-time">
                 {time.toLocaleTimeString('en-US', {timeStyle: "short"})}
+            </div>
+            <div id="clock-date-container">
+                <div id="clock-day">
+                    {weekday[time.getDay()]}
+                </div>
+                <div id="clock-date">
+                    {time.toLocaleDateString('en-US', {dateStyle: "long"})}
+                </div>
             </div>
         </div>
     );

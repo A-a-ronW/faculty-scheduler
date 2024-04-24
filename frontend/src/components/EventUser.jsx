@@ -6,7 +6,7 @@ const EventUser = ({ event }) => {
 
     return(
         <div>
-            <div>{event.title} {formatTime(startTimeObj)} – {formatTime(endTimeObj)}</div>
+            <div>{event.title} {formatTime(startTimeObj)} to {formatTime(endTimeObj)}</div>
         </div>
     );
 };
