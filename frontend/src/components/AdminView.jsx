@@ -4,8 +4,7 @@ import CreateProfessor from "./CreateProfessor";
 const AdminView = ({ professorsList, setProfessorsList }) => {
     return (
         <>
-            <h1>Professors</h1>
-            <div>
+            <div className="professors-list border-container">
                 <div>
                     {professorsList.map(professor =>
                         <ProfessorAdmin

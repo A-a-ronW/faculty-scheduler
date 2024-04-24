@@ -1,0 +1,29 @@
+@font-face {
+    font-family: 'Libre Baskerville';
+    src: url('../assets/fonts/LibreBaskerville-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --toastify-font-family: 'Libre Baskerville', serif;
+    --toastify-text-color-light: #202124;
+    --toastify-color-light: #fbfcff;
+}
+
+body {
+    background: #202124;
+    /*background: #25221f;*/
+    color: #fbfcff;
+    font-family: 'Libre Baskerville', serif;
+}
+
+input, button {
+    cursor: pointer;
+    font-family: 'Libre Baskerville', serif;
+    background: #202124;
+    color: #fbfcff;
+    border-style: solid;
+    border-radius: 6px;
+    padding: 6px;
+}

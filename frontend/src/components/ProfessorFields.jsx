@@ -41,8 +41,8 @@ const ProfessorFields = ({ professor, professorsList, setProfessorsList }) => {
         <>
             <input type="text" name="firstName" value={firstNameField} onChange={handleFirstNameChange}/>
             <input type="text" name="lastName" value={lastNameField} onChange={handleLastNameChange}/>
-            <button className="update-button" onClick={() => handleUpdateProfessor()}>Update</button>
-            <button className="delete-button" onClick={() => handleDeleteProfessor()}>Delete</button>
+            <button onClick={() => handleUpdateProfessor()}>Update</button>
+            <button onClick={() => handleDeleteProfessor()}>Delete</button>
         </>
     );
 };

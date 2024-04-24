@@ -4,7 +4,6 @@ import professorsService from "../services/professors.js";
 import axios from "axios";
 import AdminView from "./AdminView.jsx";
 import UserView from "./UserView.jsx";
-import "./styles/ProfessorsRoot.css";
 
 const ProfessorsRoot = () => {
     const [isAdmin, setIsAdmin] = useState(false);
@@ -45,8 +44,8 @@ const ProfessorsRoot = () => {
     if (isAdmin) {
         return(
             <>
-                <button className="admin-button" onClick={() => handleDisableAdmin()}>Disable Admin View</button>
-                <div className="app-container">
+                <button onClick={() => handleDisableAdmin()}>Disable Admin View</button>
+                <div>
                     <AdminView
                         professorsList={professorsList}
                         setProfessorsList={setProfessorsList}
@@ -59,14 +58,14 @@ const ProfessorsRoot = () => {
     return (
         <>
             <div>
-                <button className="admin-button" onClick={() => setDisplayPasswordField(!displayPasswordField)}>Enable Admin View</button>
+                <button onClick={() => setDisplayPasswordField(!displayPasswordField)}>Enable Admin View</button>
                 {displayPasswordField ?
-                    <div className="admin-button"> Password: <input type="password" name="passwordField" value={passwordField} onChange={handlePasswordChange}/>
+                    <div> Password: <input type="password" name="passwordField" value={passwordField} onChange={handlePasswordChange}/>
                         <button onClick={authPassword}>Submit</button>
                     </div>
                 : null}
             </div>
-            <div className="app-container">
+            <div>
                 <UserView
                     professorsList={professorsList}
                 />

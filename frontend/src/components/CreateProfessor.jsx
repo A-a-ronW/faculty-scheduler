@@ -34,7 +34,7 @@ const CreateProfessor = ({ professorsList, setProfessorsList }) => {
                    onChange={handleFirstNameChange}/>
             <input type="text" name="newProfLastNameField" value={newProfLastNameField}
                    onChange={handleLastNameChange}/>
-            <button className="submit-button" onClick={() => handleCreateProfessor()}>Add Professor</button>
+            <button onClick={() => handleCreateProfessor()}>Add Professor</button>
         </>
     );
 };

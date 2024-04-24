@@ -27,7 +27,7 @@ const ProfessorUser = ({ professor, time }) => {
 
     return(
         <>
-            <div className='prof-div'>
+            <div>
                 <h2>{professor.firstName} {professor.lastName} <Availability isAvailable={isAvailable}/></h2>
                 <EventsGrouped day={"MONDAY"} groupedEvents={groupedEvents.MONDAY} />
                 <EventsGrouped day={"TUESDAY"} groupedEvents={groupedEvents.TUESDAY} />
