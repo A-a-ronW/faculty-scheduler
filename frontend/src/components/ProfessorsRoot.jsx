@@ -2,8 +2,10 @@ import {useEffect, useState} from "react";
 import { toast } from 'react-toastify';
 import professorsService from "../services/professors.js";
 import axios from "axios";
-import AdminView from "./AdminView.jsx";
-import UserView from "./UserView.jsx";
+import AdminView from "./AdminView";
+import UserView from "./UserView";
+import PasswordBox from "./PasswordBox";
+import "../styles/ProfessorsRoot.css";
 
 const ProfessorsRoot = () => {
     const [isAdmin, setIsAdmin] = useState(false);
@@ -41,10 +43,17 @@ const ProfessorsRoot = () => {
         setDisplayPasswordField(false);
     }
 
+    const togglePasswordField = () => {
+        setDisplayPasswordField(!displayPasswordField);
+    };
+
+
     if (isAdmin) {
         return(
             <>
-                <button onClick={() => handleDisableAdmin()}>Disable Admin View</button>
+                <div className="admin-button-container">
+                    <button className="admin-button" onClick={() => handleDisableAdmin()}>Disable Admin View</button>
+                </div>
                 <div>
                     <AdminView
                         professorsList={professorsList}
@@ -58,11 +67,18 @@ const ProfessorsRoot = () => {
     return (
         <>
             <div>
-                <button onClick={() => setDisplayPasswordField(!displayPasswordField)}>Enable Admin View</button>
+                <div className="admin-button-container">
+                    <button className="admin-button"
+                            onClick={() => setDisplayPasswordField(!displayPasswordField)}>Login
+                    </button>
+                </div>
                 {displayPasswordField ?
-                    <div> Password: <input type="password" name="passwordField" value={passwordField} onChange={handlePasswordChange}/>
-                        <button onClick={authPassword}>Submit</button>
-                    </div>
+                    <PasswordBox
+                        passwordField={passwordField}
+                        handlePasswordChange={handlePasswordChange}
+                        authPassword={authPassword}
+                        closePasswordBox={togglePasswordField}
+                    />
                 : null}
             </div>
             <div>

@@ -1,0 +1,9 @@
+.admin-button-container {
+    display: flex;
+    justify-content: right;
+}
+
+button.admin-button {
+    color: #fbfcff;
+    border-style: none;
+}
