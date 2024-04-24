@@ -5,7 +5,7 @@ import {checkAvailability} from "./../utils/timeUtils";
 import {useEffect, useState} from "react";
 import "../styles/ProfessorUser.css";
 
-const ProfessorUser = ({ professor, time }) => {
+const ProfessorUser = ({ professor, time, weeklyView }) => {
     const getTodayEvents = (groupedEvents) => {
         switch(new Date().getDay()) {
             case 0: return groupedEvents.SUNDAY;
@@ -35,11 +35,11 @@ const ProfessorUser = ({ professor, time }) => {
                     </div>
                     <Availability isAvailable={isAvailable}/>
                 </div>
-                <EventsGrouped day={"MONDAY"} groupedEvents={groupedEvents.MONDAY}/>
-                <EventsGrouped day={"TUESDAY"} groupedEvents={groupedEvents.TUESDAY} />
-                <EventsGrouped day={"WEDNESDAY"} groupedEvents={groupedEvents.WEDNESDAY} />
-                <EventsGrouped day={"THURSDAY"} groupedEvents={groupedEvents.THURSDAY}/>
-                <EventsGrouped day={"FRIDAY"} groupedEvents={groupedEvents.FRIDAY} />
+                <EventsGrouped day={"MONDAY"} groupedEvents={groupedEvents.MONDAY} time={time} weeklyView={weeklyView}/>
+                <EventsGrouped day={"TUESDAY"} groupedEvents={groupedEvents.TUESDAY} time={time} weeklyView={weeklyView}/>
+                <EventsGrouped day={"WEDNESDAY"} groupedEvents={groupedEvents.WEDNESDAY} time={time} weeklyView={weeklyView}/>
+                <EventsGrouped day={"THURSDAY"} groupedEvents={groupedEvents.THURSDAY} time={time} weeklyView={weeklyView}/>
+                <EventsGrouped day={"FRIDAY"} groupedEvents={groupedEvents.FRIDAY} time={time} weeklyView={weeklyView}/>
             </div>
         </>
     );

@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import eventsService from '../services/events';
 import {toast} from "react-toastify";
+import "../styles/EventAdmin.css";
 
 const EventAdmin = ({ eventEditingList, setEventEditingList, setIsCreating, event, professorsList, setProfessorsList }) => {
     const eventId = event.id;
@@ -142,7 +143,7 @@ const EventAdmin = ({ eventEditingList, setEventEditingList, setIsCreating, even
                     <fieldset>
                         <legend>Days of the Week:</legend>
                         {days.map(day => (
-                            <div key={day}>
+                            <div className="days-checkboxes" key={day}>
                                 <input
                                     type="checkbox"
                                     id={day}

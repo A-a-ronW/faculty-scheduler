@@ -5,14 +5,13 @@
     padding: 12px 12px 10px 16px;
     font-weight: bold;
     text-align: center;
+    font-size: clamp(12px, 2vw, 18px);
 }
 
 .available {
-    /*background-color: #5a6f58;*/
     background-color: #4df0482e;
 }
 
 .unavailable {
-    /*background-color: #554237;*/
     background-color: #ff00002b;
 }

@@ -6,4 +6,6 @@
 button.admin-button {
     color: #f1efeb;
     border-style: none;
+    font-size: clamp(12px, 2vw,18px);
+    margin-right: 2px;
 }

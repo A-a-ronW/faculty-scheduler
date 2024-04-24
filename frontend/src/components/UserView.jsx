@@ -18,6 +18,7 @@ const UserView = ({ professorsList }) => {
                         key={professor.id}
                         professor={professor}
                         time={time}
+                        weeklyView={weeklyView}
                     />
                 ))}
             </div>

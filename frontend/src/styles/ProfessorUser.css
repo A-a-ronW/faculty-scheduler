@@ -4,7 +4,7 @@
 
 .professor-name-wrapper {
     margin: 60px auto 12px auto;
-    font-size: clamp(14px, 2vw, 28px);
+    font-size: clamp(16px, 2vw, 28px);
     text-align: center;
 }
 

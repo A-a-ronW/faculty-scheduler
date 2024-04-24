@@ -5,25 +5,32 @@ h5 {
 h5.class-header {
     flex-grow: 1; /* Allows this div to grow and fill the space */
     flex-shrink: 1; /* Allows this div to shrink if necessary */
-    flex-basis: 0%; /* Starts with the smallest possible size before growing */
+    flex-basis: 0; /* Starts with the smallest possible size before growing */
+    font-size: clamp(12px, 2vw, 24px);
 }
 
 .class-container {
-    font-size: clamp(14px, 2vw, 32px);
     display: flex;
     justify-content: space-between;
     width: 100%;
     align-items: flex-end; /* Aligns children to the bottom of the container */
+    margin-bottom: 2vh;
 }
 
 .class-timerange {
     flex-grow: 0; /* Prevents this div from growing beyond its content */
     flex-shrink: 0; /* Prevents this div from shrinking below its content size */
     flex-basis: auto; /* Size is based on the content automatically */
+    font-size: clamp(12px, 2vw, 24px);
+    margin-left: 2vw;
+}
+
+.events-list {
+    margin-bottom: 4vh;
 }
 
 .day-header {
     border-bottom-style: solid;
-    margin: 24px 0 12px 0;
-    font-size: clamp(16px, 2.1vw, 36px);
+    margin: 24px 0 24px 0;
+    font-size: clamp(16px, 2.5vw, 28px);
 }
