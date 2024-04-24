@@ -27,6 +27,6 @@ const authenticateAdmin = async (req, res, next) => {
 
 app.post('/authenticate', authenticateAdmin, (req, res) => res.send({ isAuthenticated: true}));
 
-app.get('/', (req, res) => res.send("Welcome to the Professor Scheduling API"));
+app.use(express.static('dist'));
 
 app.listen(PORT, () => console.log(`Express app listening on port ${PORT}`));

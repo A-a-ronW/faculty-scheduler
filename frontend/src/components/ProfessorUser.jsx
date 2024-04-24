@@ -33,7 +33,7 @@ const ProfessorUser = ({ professor, time, weeklyView }) => {
                     <div className="professor-name-wrapper">
                         <h2>{professor.firstName} {professor.lastName}</h2>
                     </div>
-                    <Availability isAvailable={isAvailable}/>
+                    <Availability isAvailable={isAvailable} />
                 </div>
                 {!weeklyView ?
                     <EventsGrouped groupedEvents={getTodayEvents(groupedEvents)} weeklyView={weeklyView} /> :
