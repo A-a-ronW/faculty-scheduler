@@ -1,11 +1,11 @@
 .professors-list {
     max-width: clamp(360px, 60vw, 1000px);
-    margin: auto;
+    margin: 24px auto auto;
 }
 
 .border-container {
     border-radius: 12px;
     border-style: solid;
     border-width: 6px;
-    padding: 24px;
+    padding: 0 clamp(24px, 5vw, 56px) clamp(24px, 5vw, 56px);
 }

@@ -1,0 +1,13 @@
+/*.professor-header {*/
+/*    font-size: clamp(14px, 2vw, 28px);*/
+/*}*/
+
+.professor-name-wrapper {
+    margin: 60px auto 12px auto;
+    font-size: clamp(14px, 2vw, 28px);
+    text-align: center;
+}
+
+h2 {
+    margin: 0;
+}

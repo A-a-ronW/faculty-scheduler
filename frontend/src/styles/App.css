@@ -5,23 +5,37 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Libre Baskerville Bold';
+    src: url('../assets/fonts/LibreBaskerville-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Libre Baskerville Italic';
+    src: url('../assets/fonts/LibreBaskerville-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
 :root {
     --toastify-font-family: 'Libre Baskerville', serif;
-    --toastify-text-color-light: #202124;
-    --toastify-color-light: #fbfcff;
+    --toastify-text-color-light: #2c2b28;
+    --toastify-color-light: #f1efeb;
 }
 
 body {
-    background: #202124;
-    color: #fbfcff;
+    background: #2c2b28;
+    color: #f1efeb;
     font-family: 'Libre Baskerville', serif;
 }
 
 input, button {
     cursor: pointer;
     font-family: 'Libre Baskerville', serif;
-    background: #202124;
-    color: #fbfcff;
+    background: #2c2b28;
+    color: #f1efeb;
     border-style: solid;
     border-radius: 6px;
     padding: 6px;

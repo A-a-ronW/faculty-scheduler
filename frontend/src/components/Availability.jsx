@@ -1,11 +1,17 @@
+import "../styles/Availability.css";
+
 const Availability = ({isAvailable}) => {
     if (isAvailable) {
         return (
-            <span>[Available]</span>
+            <div className="availability available">
+                Available
+            </div>
         )
     } else {
         return (
-            <span>[Unavailable]</span>
+            <div className="availability unavailable">
+                Unavailable
+            </div>
         )
     }
 }
