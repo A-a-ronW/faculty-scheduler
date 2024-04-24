@@ -1,0 +1,22 @@
+.weekly-buttons-container {
+    font-family: "Libre Baskerville", serif;
+    display: flex;
+    font-size: 12px;
+    justify-content: right;
+    margin: 12px;
+}
+
+.weekly-buttons-text {
+    background-color: #f1efeb;
+    color: #2c2b28;
+    border-radius: 6px;
+    padding: 9px 6px 6px 6px;
+}
+
+button.weekly-buttons {
+    font-family: "Libre Baskerville", serif;
+    border-style: none;
+    font-size: 12px;
+    margin: 0;
+    padding: 9px 6px 6px 6px;
+}
