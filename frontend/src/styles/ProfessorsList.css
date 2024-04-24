@@ -9,3 +9,7 @@
     border-width: 6px;
     padding: 0 clamp(24px, 5vw, 56px) clamp(24px, 5vw, 56px);
 }
+
+.admin-professors-list {
+    margin-top: clamp(24px, 5vw, 56px);
+}

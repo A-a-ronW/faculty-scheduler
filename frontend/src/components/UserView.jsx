@@ -17,7 +17,6 @@ const UserView = ({ professorsList }) => {
                     <ProfessorUser
                         key={professor.id}
                         professor={professor}
-                        time={time}
                         weeklyView={weeklyView}
                     />
                 ))}

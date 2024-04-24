@@ -35,11 +35,16 @@ const ProfessorUser = ({ professor, time, weeklyView }) => {
                     </div>
                     <Availability isAvailable={isAvailable}/>
                 </div>
-                <EventsGrouped day={"MONDAY"} groupedEvents={groupedEvents.MONDAY} time={time} weeklyView={weeklyView}/>
-                <EventsGrouped day={"TUESDAY"} groupedEvents={groupedEvents.TUESDAY} time={time} weeklyView={weeklyView}/>
-                <EventsGrouped day={"WEDNESDAY"} groupedEvents={groupedEvents.WEDNESDAY} time={time} weeklyView={weeklyView}/>
-                <EventsGrouped day={"THURSDAY"} groupedEvents={groupedEvents.THURSDAY} time={time} weeklyView={weeklyView}/>
-                <EventsGrouped day={"FRIDAY"} groupedEvents={groupedEvents.FRIDAY} time={time} weeklyView={weeklyView}/>
+                {!weeklyView ?
+                    <EventsGrouped groupedEvents={getTodayEvents(groupedEvents)} weeklyView={weeklyView} /> :
+                    <>
+                        <EventsGrouped day={"MONDAY"} groupedEvents={groupedEvents.MONDAY} weeklyView={weeklyView} />
+                        <EventsGrouped day={"TUESDAY"} groupedEvents={groupedEvents.TUESDAY} weeklyView={weeklyView} />
+                        <EventsGrouped day={"WEDNESDAY"} groupedEvents={groupedEvents.WEDNESDAY} weeklyView={weeklyView} />
+                        <EventsGrouped day={"THURSDAY"} groupedEvents={groupedEvents.THURSDAY} weeklyView={weeklyView} />
+                        <EventsGrouped day={"FRIDAY"} groupedEvents={groupedEvents.FRIDAY} weeklyView={weeklyView} />
+                    </>
+                }
             </div>
         </>
     );

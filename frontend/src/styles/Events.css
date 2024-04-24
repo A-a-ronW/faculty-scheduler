@@ -34,3 +34,7 @@ h5.class-header {
     margin: 24px 0 24px 0;
     font-size: clamp(16px, 2.5vw, 28px);
 }
+
+.events-list-daily {
+    margin-top: 3vh;
+}
