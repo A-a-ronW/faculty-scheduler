@@ -4,7 +4,13 @@
   "description": "Backend for the faculty scheduler application.",
   "main": "index.js",
   "scripts": {
-    "start:dev": "npx nodemon index.js",
+    "build": "cd .. && npm run build",
+    "start": "node index.js",
+    "start:build": "cd .. && npm start:build",
+    "dev": "npx nodemon index.js",
+    "dev:front": "cd .. && npm run dev:front",
+    "dev:back": "npm run dev",
+    "dev:full": "cd .. && npm run dev:full",
     "prismascript": "node prisma/script.js"
   },
   "author": "",

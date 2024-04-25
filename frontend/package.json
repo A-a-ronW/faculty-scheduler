@@ -4,8 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "vite build",
+    "start": "cd .. && npm run start",
+    "start:build": "cd .. && npm run start:build",
+    "dev": "vite",
+    "dev:back": "cd .. && npm run dev:back",
+    "dev:front": "npm run dev",
+    "dev:full": "cd .. && npm run dev:full",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
