@@ -6,7 +6,7 @@
   "scripts": {
     "build": "cd .. && npm run build",
     "start": "node index.js",
-    "start:build": "cd .. && npm start:build",
+    "start:build": "cd .. && npm run start:build",
     "dev": "npx nodemon index.js",
     "dev:front": "cd .. && npm run dev:front",
     "dev:back": "npm run dev",
