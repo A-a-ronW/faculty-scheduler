@@ -1,6 +1,7 @@
 import professorsService from "../services/professors.js";
 import { useState } from "react";
 import {toast} from "react-toastify";
+import "../styles/App.css"
 
 const CreateEvent = ({ eventEditingList, setEventEditingList, isCreating, setIsCreating, professor, professorsList, setProfessorsList }) => {
     const [eventData, setEventData] = useState({
@@ -80,9 +81,9 @@ const CreateEvent = ({ eventEditingList, setEventEditingList, isCreating, setIsC
 
     if (isCreating) {
         return (
-            <div>
-                <button onClick={() => setIsCreating(false)}>Hide add a class</button>
-                <form onSubmit={handleSubmit}>
+            <div className="create-event-wrapper">
+                <button className="white-button" onClick={() => setIsCreating(false)}>Hide add a class</button>
+                <form className="event-form" onSubmit={handleSubmit}>
                     <div>
                         <label>Class Name: </label>
                         <input
@@ -110,7 +111,7 @@ const CreateEvent = ({ eventEditingList, setEventEditingList, isCreating, setIsC
                             onChange={handleChange}
                         />
                     </div>
-                    <fieldset>
+                    <fieldset className="days-of-week-container">
                         <legend>Days of the Week:</legend>
                         {days.map(day => (
                             <div key={day}>
@@ -125,14 +126,14 @@ const CreateEvent = ({ eventEditingList, setEventEditingList, isCreating, setIsC
                             </div>
                         ))}
                     </fieldset>
-                    <button type="submit">Add Event</button>
+                    <button className="white-button" type="submit">Add Event</button>
                 </form>
             </div>
         );
     } else {
         return (
-            <div>
-                <button onClick={() => handleEnableIsCreating()}>Show add a class for {professor.firstName} {professor.lastName}</button>
+            <div className="create-event-wrapper">
+                <button className="white-button" onClick={() => handleEnableIsCreating()}>Add a class</button>
             </div>
         )
     }

@@ -1,0 +1,42 @@
+.update-professors-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+input.update-professors-flex-item {
+    border-color: #f1efeb;
+    color: #f1efeb;
+    min-width: 100px;
+    flex: 2 1;
+}
+
+button.update-professors-flex-item {
+    flex: 1;
+}
+
+h2.professor-edit-header {
+    margin: 60px 0 24px 0;
+}
+
+h3.add-professor-header {
+    margin-top: 60px;
+}
+
+.add-professor-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.add-professor-items {
+    min-width: 100px;
+    flex: 1;
+}
+
+button.add-professor-items {
+    background-color: #f1efeb;
+    border-color: #2c2b28;
+    color: #2c2b28;
+    min-width: fit-content;
+    text-wrap: nowrap;
+}

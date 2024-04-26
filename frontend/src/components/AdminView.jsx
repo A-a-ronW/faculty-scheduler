@@ -16,7 +16,6 @@ const AdminView = ({ professorsList, setProfessorsList }) => {
                             />
                         )}
                     </div>
-                    <h3>Add a professor</h3>
                     <CreateProfessor
                         professorsList={professorsList}
                         setProfessorsList={setProfessorsList}

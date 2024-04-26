@@ -1,6 +1,7 @@
 import {useState} from "react";
 import professorsService from "../services/professors.js";
 import {toast} from "react-toastify";
+import "../styles/ProfessorsEdit.css";
 
 const ProfessorFields = ({ professor, professorsList, setProfessorsList }) => {
     const [firstNameField, setFirstNameField] = useState(professor.firstName);
@@ -44,13 +45,13 @@ const ProfessorFields = ({ professor, professorsList, setProfessorsList }) => {
     };
 
     return (
-        <>
-            <input type="text" name="firstName" value={firstNameField} onChange={handleFirstNameChange}/>
-            <input type="text" name="lastName" value={lastNameField} onChange={handleLastNameChange}/>
-            <input type="number" name="room" value={roomField} onChange={handleRoomChange}/>
-            <button onClick={() => handleUpdateProfessor()}>Update</button>
-            <button onClick={() => handleDeleteProfessor()}>Delete</button>
-        </>
+        <div className="update-professors-wrapper">
+            <input className="update-professors-flex-item" type="text" name="firstName" value={firstNameField} onChange={handleFirstNameChange}/>
+            <input className="update-professors-flex-item" type="text" name="lastName" value={lastNameField} onChange={handleLastNameChange}/>
+            <input className="update-professors-flex-item" type="number" name="room" value={roomField} onChange={handleRoomChange}/>
+            <button className="update-professors-flex-item white-button" onClick={() => handleUpdateProfessor()}>Update</button>
+            <button className="update-professors-flex-item red-button" onClick={() => handleDeleteProfessor()}>Delete</button>
+        </div>
     );
 };
 

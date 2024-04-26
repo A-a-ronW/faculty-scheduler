@@ -38,3 +38,30 @@ h5.class-header {
 .events-list-daily {
     margin-top: 3vh;
 }
+
+div.days-checkboxes {
+    display: inline-block;
+}
+
+.event-admin-wrapper {
+    margin: 18px 2vw 18px 2vw;
+}
+
+.event-form {
+    margin: 18px 2vw 0 2vw;
+
+    div {
+        margin-bottom: 12px;
+    }
+
+    button {
+        margin-top: 12px;
+    }
+}
+
+.days-of-week-container {
+    font-size: 12px;
+    div {
+        margin: 0;
+    }
+}

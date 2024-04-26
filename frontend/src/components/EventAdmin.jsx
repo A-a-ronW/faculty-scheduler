@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import eventsService from '../services/events';
 import {toast} from "react-toastify";
-import "../styles/EventAdmin.css";
+import "../styles/Events.css";
 
 const EventAdmin = ({ eventEditingList, setEventEditingList, setIsCreating, event, professorsList, setProfessorsList }) => {
     const eventId = event.id;
@@ -108,42 +108,44 @@ const EventAdmin = ({ eventEditingList, setEventEditingList, setIsCreating, even
 
     if (isEditing) {
         return (
-            <div>
+            <div className="event-admin-wrapper">
                 <span>{event.title} </span>
-                <button onClick={() => handleDisableEditingThis()}>Hide Edit</button>
-                <button onClick={() => handleDeleteEvent()}>Delete</button>
-                <form onSubmit={handleUpdateEvent}>
-                    <div>
-                        <label>Class Name: </label>
-                        <input
-                            type="text"
-                            name="title"
-                            value={eventData.title}
-                            onChange={handleChange}
-                        />
+                <button className="white-button" onClick={() => handleDisableEditingThis()}>Hide Edit</button>
+                <button className="red-button" onClick={() => handleDeleteEvent()}>Delete</button>
+                <form className="event-form" onSubmit={handleUpdateEvent}>
+                    <div className="event-text-wrapper">
+                        <div className="event-text-item">
+                            <label>Class Name: </label>
+                            <input
+                                type="text"
+                                name="title"
+                                value={eventData.title}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="event-text-item">
+                            <label>Start Time: </label>
+                            <input
+                                type="time"
+                                name="startTime"
+                                value={eventData.startTime}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="event-text-item">
+                            <label>End Time: </label>
+                            <input
+                                type="time"
+                                name="endTime"
+                                value={eventData.endTime}
+                                onChange={handleChange}
+                            />
+                        </div>
                     </div>
-                    <div>
-                        <label>Start Time: </label>
-                        <input
-                            type="time"
-                            name="startTime"
-                            value={eventData.startTime}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div>
-                        <label>End Time: </label>
-                        <input
-                            type="time"
-                            name="endTime"
-                            value={eventData.endTime}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <fieldset>
+                    <fieldset className="days-of-week-container">
                         <legend>Days of the Week:</legend>
                         {days.map(day => (
-                            <div className="days-checkboxes" key={day}>
+                            <div key={day}>
                                 <input
                                     type="checkbox"
                                     id={day}
@@ -161,10 +163,10 @@ const EventAdmin = ({ eventEditingList, setEventEditingList, setIsCreating, even
         );
     } else {
         return (
-            <div>
+            <div className="event-admin-wrapper">
                 <span>{event.title} </span>
-                <button onClick={() => handleEnableEditingThis()}>Show Edit</button>
-                <button onClick={() => handleDeleteEvent()}>Delete</button>
+                <button className="white-button" onClick={() => handleEnableEditingThis()}>Show Edit</button>
+                <button className="red-button" onClick={() => handleDeleteEvent()}>Delete</button>
             </div>
         )
     }

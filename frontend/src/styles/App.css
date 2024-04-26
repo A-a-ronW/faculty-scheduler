@@ -40,3 +40,16 @@ input, button {
     border-radius: 6px;
     padding: 6px;
 }
+
+.white-button {
+    color: #2c2b28;
+    background-color: #f1efeb;
+    border-color: #2c2b28;
+}
+
+button.red-button {
+    font-family: "Libre Baskerville Bold", serif;
+    color: #f1efeb;
+    background-color: #ff00002b;
+    border-color: #2c2b28;
+}

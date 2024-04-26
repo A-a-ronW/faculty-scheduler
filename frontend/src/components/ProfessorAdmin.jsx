@@ -3,6 +3,7 @@ import CreateEvent from './CreateEvent';
 import ProfessorFields from "./ProfessorFields.jsx";
 import EventAdmin from "./EventAdmin";
 import {sortEvents} from "../utils/eventUtil";
+import "../styles/ProfessorsEdit.css";
 
 const ProfessorAdmin = ({ professor, professorsList, setProfessorsList }) => {
     const sortedEvents = sortEvents(professor.events);
@@ -29,8 +30,8 @@ const ProfessorAdmin = ({ professor, professorsList, setProfessorsList }) => {
     }, [professor.events]);
 
     return(
-        <div>
-            <h2>{professor.firstName} {professor.lastName}</h2>
+        <div className="">
+            <h2 className="professor-edit-header">{professor.firstName} {professor.lastName}</h2>
             <ProfessorFields
                 professor={professor}
                 professorsList={professorsList}
