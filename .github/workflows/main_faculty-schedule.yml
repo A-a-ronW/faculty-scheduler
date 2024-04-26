@@ -33,7 +33,7 @@ jobs:
 
     steps:
       - name: run index.js
-      - run: cd ../backend
+        run: cd ../backend
       - run: node index.js
             
       - name: Login to Azure
