@@ -2,7 +2,6 @@ import "../styles/PasswordBox.css"
 
 const PasswordBox = ({ passwordField, handlePasswordChange, authPassword, closePasswordBox }) => {
     const handleClickOutside = (event) => {
-        // Close the box if the clicked element is the overlay
         if (event.target.className === 'password-overlay') {
             closePasswordBox();
         }

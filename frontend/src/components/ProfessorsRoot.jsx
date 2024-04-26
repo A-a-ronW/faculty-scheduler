@@ -33,6 +33,7 @@ const ProfessorsRoot = () => {
         axios.post('http://localhost:3001/authenticate', passwordRequestBody).then((response) => {
             if (response.data.isAuthenticated) {
                 setIsAdmin(true);
+                setPasswordField("");
                 toast("Successful login.");
             }
         });
@@ -43,9 +44,7 @@ const ProfessorsRoot = () => {
         setDisplayPasswordField(false);
     }
 
-    const togglePasswordField = () => {
-        setDisplayPasswordField(!displayPasswordField);
-    };
+    const togglePasswordField = () => setDisplayPasswordField(!displayPasswordField);
 
 
     if (isAdmin) {
