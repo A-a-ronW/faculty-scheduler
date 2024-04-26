@@ -5,6 +5,7 @@ import {toast} from "react-toastify";
 const ProfessorFields = ({ professor, professorsList, setProfessorsList }) => {
     const [firstNameField, setFirstNameField] = useState(professor.firstName);
     const [lastNameField, setLastNameField] = useState(professor.lastName);
+    const [roomField, setRoomField] = useState(professor.room);
 
     const handleFirstNameChange = (event) => {
         setFirstNameField(event.target.value);
@@ -14,15 +15,20 @@ const ProfessorFields = ({ professor, professorsList, setProfessorsList }) => {
         setLastNameField(event.target.value);
     };
 
+    const handleRoomChange = (event) => {
+        setRoomField(event.target.value);
+    };
+
     const handleUpdateProfessor = () => {
         const updatedProfessor = {
             firstName: firstNameField,
-            lastName: lastNameField
+            lastName: lastNameField,
+            room: Number(roomField)
         };
 
         professorsService.updateProfessor(professor.id, updatedProfessor).then((response) => {
             setProfessorsList(professorsList.map(prof => prof.id === professor.id ? response : prof));
-            toast(`Renamed ${professor.firstName} ${professor.lastName} to ${response.firstName} ${response.lastName}`);
+            toast(`Renamed ${professor.firstName} ${professor.lastName} at room ${professor.room} to ${response.firstName} ${response.lastName} at room ${response.room}`);
         });
     };
 
@@ -41,6 +47,7 @@ const ProfessorFields = ({ professor, professorsList, setProfessorsList }) => {
         <>
             <input type="text" name="firstName" value={firstNameField} onChange={handleFirstNameChange}/>
             <input type="text" name="lastName" value={lastNameField} onChange={handleLastNameChange}/>
+            <input type="number" name="room" value={roomField} onChange={handleRoomChange}/>
             <button onClick={() => handleUpdateProfessor()}>Update</button>
             <button onClick={() => handleDeleteProfessor()}>Delete</button>
         </>

@@ -13,6 +13,7 @@ router.get('/', async (req, res) => {
                 id: true,
                 firstName: true,
                 lastName: true,
+                room: true,
                 events: true
             }
         });
@@ -24,18 +25,20 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const { firstName, lastName } = req.body;
+    const { firstName, lastName, room } = req.body;
 
     try {
         const professor = await prisma.professor.create({
             data: {
                 firstName,
-                lastName
+                lastName,
+                room
             },
             select: {
                 id: true,
                 firstName: true,
                 lastName: true,
+                room: true,
                 events: true
             }
         });
@@ -48,21 +51,23 @@ router.post('/', async (req, res) => {
 
 router.patch('/:id', async (req, res) => {
     const { id } = req.params;
-    const { firstName, lastName } = req.body;
+    const { firstName, lastName, room } = req.body;
 
     try {
         const updatedProfessor = await prisma.professor.update({
             where: {
-                id: id
+                id
             },
             data: {
-                firstName: firstName,
-                lastName: lastName
+                firstName,
+                lastName,
+                room
             },
             select: {
                 id: true,
                 firstName: true,
                 lastName: true,
+                room: true,
                 events: true
             }
         });
@@ -79,7 +84,7 @@ router.delete('/:id', async (req, res) => {
     try {
         await prisma.professor.delete({
             where: {
-                id: id
+                id
             }
         });
 
@@ -114,6 +119,7 @@ router.post("/:professorId/events", async (req, res) => {
                 id: true,
                 firstName: true,
                 lastName: true,
+                room: true,
                 events: true
             }
         })

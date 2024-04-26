@@ -5,6 +5,7 @@ import {toast} from "react-toastify";
 const CreateProfessor = ({ professorsList, setProfessorsList }) => {
     const [newProfFirstNameField, setNewProfFirstNameField] = useState("");
     const [newProfLastNameField, setNewProfLastNameField] = useState("");
+    const [newProfRoomField, setNewProfRoomField] = useState("");
 
     const handleFirstNameChange = (event) => {
         setNewProfFirstNameField(event.target.value);
@@ -14,16 +15,22 @@ const CreateProfessor = ({ professorsList, setProfessorsList }) => {
         setNewProfLastNameField(event.target.value);
     };
 
+    const handleRoomFieldChange = (event) => {
+        setNewProfRoomField(event.target.value);
+    };
+
     const handleCreateProfessor = () => {
         const createProfessorBody = {
             firstName: newProfFirstNameField,
-            lastName: newProfLastNameField
+            lastName: newProfLastNameField,
+            room: Number(newProfRoomField)
         };
 
         professorsService.createProfessor(createProfessorBody).then(response => {
             setProfessorsList(professorsList.concat(response));
             setNewProfFirstNameField("");
             setNewProfLastNameField("");
+            setNewProfRoomField("");
             toast("Created new professor.");
         });
     };
@@ -34,6 +41,8 @@ const CreateProfessor = ({ professorsList, setProfessorsList }) => {
                    onChange={handleFirstNameChange}/>
             <input type="text" name="newProfLastNameField" value={newProfLastNameField}
                    onChange={handleLastNameChange}/>
+            <input type="number" name="newProfRoomField" value={newProfRoomField}
+                   onChange={handleRoomFieldChange}/>
             <button onClick={() => handleCreateProfessor()}>Add Professor</button>
         </>
     );

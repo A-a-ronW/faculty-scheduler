@@ -1,13 +1,26 @@
-/*.professor-header {*/
-/*    font-size: clamp(14px, 2vw, 28px);*/
-/*}*/
-
 .professor-name-wrapper {
+    font-size: clamp(16px, 2.5vw, 28px);
     margin: 60px auto 12px auto;
-    font-size: clamp(16px, 2vw, 28px);
     text-align: center;
 }
 
 h2 {
     margin: 0;
+}
+
+.professor-room-number {
+    font-family: 'Libre Baskerville Bold', serif;
+    font-size: clamp(12px, 2vw, 18px);
+    margin-top: 0.7em;
+}
+
+.professor-room-abbreviation {
+    font-size: 0.7em;
+}
+
+.no-classes {
+    font-family: 'Libre Baskerville Bold', serif;
+    text-align: center;
+    margin-top: 2vh;
+    font-size: clamp(12px, 2vw, 18px);
 }

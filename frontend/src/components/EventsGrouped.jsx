@@ -5,7 +5,7 @@ const EventsGrouped = ({day, groupedEvents, weeklyView}) => {
     if (groupedEvents.length === 0) return null
 
     const sortedGroupedEvents = sortEvents(groupedEvents);
-
+    
     if (!weeklyView) {
         return(
             <>
@@ -16,6 +16,7 @@ const EventsGrouped = ({day, groupedEvents, weeklyView}) => {
                             event={event}
                         />
                     )}
+                    {sortedGroupedEvents.length === 0 ? <div>test</div> : null}
                 </div>
             </>
         )
@@ -25,12 +26,12 @@ const EventsGrouped = ({day, groupedEvents, weeklyView}) => {
         <>
             <h4 className="day-header">{String(day)}</h4>
             <div className="events-list">
-            {sortedGroupedEvents.map(event =>
-                    <EventUser
-                        key={event.id}
-                        event={event}
-                    />
-                )}
+                {sortedGroupedEvents.map(event =>
+                        <EventUser
+                            key={event.id}
+                            event={event}
+                        />
+                    )}
             </div>
         </>
     )

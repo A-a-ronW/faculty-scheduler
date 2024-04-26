@@ -31,6 +31,7 @@ router.patch('/:id', async (req, res) => {
                 id: true,
                 firstName: true,
                 lastName: true,
+                room: true,
                 events: true
             }
         })

@@ -15,8 +15,9 @@ datasource db {
 
 model Professor {
   id        String  @id @default(uuid())
-  firstName String  @default("John")
-  lastName  String  @default("Doe")
+  firstName String
+  lastName  String
+  room      Int
   events    Event[]
 
   @@unique(name: "fullName", [firstName, lastName])

@@ -3,9 +3,9 @@ h5 {
 }
 
 h5.class-header {
-    flex-grow: 1; /* Allows this div to grow and fill the space */
-    flex-shrink: 1; /* Allows this div to shrink if necessary */
-    flex-basis: 0; /* Starts with the smallest possible size before growing */
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
     font-size: clamp(12px, 2vw, 24px);
 }
 
@@ -13,14 +13,14 @@ h5.class-header {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    align-items: flex-end; /* Aligns children to the bottom of the container */
+    align-items: flex-end;
     margin-bottom: 2vh;
 }
 
 .class-timerange {
-    flex-grow: 0; /* Prevents this div from growing beyond its content */
-    flex-shrink: 0; /* Prevents this div from shrinking below its content size */
-    flex-basis: auto; /* Size is based on the content automatically */
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: auto;
     font-size: clamp(12px, 2vw, 24px);
     margin-left: 2vw;
 }
