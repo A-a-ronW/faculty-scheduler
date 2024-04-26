@@ -37,11 +37,11 @@ const CreateProfessor = ({ professorsList, setProfessorsList }) => {
 
     return (
         <>
-            <input type="text" name="newProfFirstNameField" value={newProfFirstNameField}
+            <input type="text" name="newProfFirstNameField" value={newProfFirstNameField} placeholder="First Name"
                    onChange={handleFirstNameChange}/>
-            <input type="text" name="newProfLastNameField" value={newProfLastNameField}
+            <input type="text" name="newProfLastNameField" value={newProfLastNameField} placeholder="Last Name"
                    onChange={handleLastNameChange}/>
-            <input type="number" name="newProfRoomField" value={newProfRoomField}
+            <input type="number" name="newProfRoomField" value={newProfRoomField} placeholder="Room Number"
                    onChange={handleRoomFieldChange}/>
             <button onClick={() => handleCreateProfessor()}>Add Professor</button>
         </>
