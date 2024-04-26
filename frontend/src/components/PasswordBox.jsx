@@ -11,7 +11,7 @@ const PasswordBox = ({ passwordField, handlePasswordChange, authPassword, closeP
     return (
         <div className="password-overlay" onClick={handleClickOutside}>
             <div className="password-box">
-                Password: <input type="password" name="passwordField" value={passwordField}
+                <input type="password" name="passwordField" value={passwordField} placeholder="Password"
                                  onChange={handlePasswordChange}/>
                 <button onClick={authPassword}>Submit</button>
                 <button onClick={closePasswordBox}>Close</button>
