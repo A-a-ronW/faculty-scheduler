@@ -1,0 +1,53 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy Node.js app to Azure Web App - faculty-schedule
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js version
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - run: npm install
+      - run: cd backend
+      - run: npm install
+      - run: cd ../frontend
+      - run: npm install
+      - run: npm run build
+      - run: cp -r dist ../backend
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: run index.js
+        run: cd ../backend
+      - run: node index.js
+            
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_AA44F8DF8D004A2B86B246A0875C2162 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3C0813837A8844B7BC03E5586EEC636F }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_FCFC0972AF054DAAA87C310FBEE2409F }}
+
+      - name: 'Deploy to Azure Web App'
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'faculty-schedule'
+          slot-name: 'Production'
+          package: .
+          
