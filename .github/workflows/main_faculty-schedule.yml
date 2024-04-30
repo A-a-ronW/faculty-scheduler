@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - faculty-schedule
+name: CI/CD Pipeline
 
 on:
   push:
@@ -14,27 +14,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+       
       - name: Set up Node.js version
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - run: npm install
-      - run: cd backend
-      - run: npm install
-      - run: cd ../frontend
-      - run: npm install
-      - run: npm run build
-      - run: cp -r dist ../backend
+          
+      - name: Install dependecies for frontend
+        run: npm install
+        working-directory: ./frontend
 
+      - name: Install dependencies for backend
+        run: npm install
+        working-directory: ./backend
+
+      - name: Install dependencies for root
+        run: npm install
+        working-directory: ./
+
+      - name: Build dist folder
+        run: npm run build
+        working-directory: ./frontend
+
+      - name: Copy dist folder to backend
+        run: cp -r ./frontend/dist ./backend
+        
+      
   deploy:
     runs-on: ubuntu-latest
     needs: build
 
     steps:
       - name: run index.js
-        run: cd ../backend
-      - run: node index.js
+        run: node index.js
+        working-directory: ./backend
             
       - name: Login to Azure
         uses: azure/login@v1
