@@ -49,7 +49,7 @@ jobs:
     steps:
       - name: run index.js
         run: node index.js
-        working-directory: ./backend
+        working-directory: /backend
             
       - name: Login to Azure
         uses: azure/login@v1
